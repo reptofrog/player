@@ -1,12 +1,13 @@
 {
   "scripts": {
     "serve": "webpack serve --hot --open --mode development",
-    "build": "webpack build --mode production"
+    "build": "webpack build --mode production; cp public/index.html dist"
   },
   "devDependencies": {
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
     "@types/styled-components": "^5.1.26",
+    "file-loader": "^6.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "styled-components": "^5.3.6",

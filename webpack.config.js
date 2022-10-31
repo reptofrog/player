@@ -6,9 +6,13 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.tsx$/,
-                use: ['ts-loader']
-            }
+                test: /\.(ts|tsx)$/,
+                use: 'ts-loader'
+            },
+            {
+                test: /\.woff$/,
+                use: 'file-loader'
+            },
         ]
     }
 }
