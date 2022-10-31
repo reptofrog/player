@@ -10,7 +10,7 @@ module.exports = {
                 use: 'ts-loader'
             },
             {
-                test: /\.woff$/,
+                test: /\.(svg|woff)$/,
                 use: 'file-loader'
             },
         ]

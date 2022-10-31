@@ -20,16 +20,22 @@ const GlobalStyle = createGlobalStyle`
         src: url('${HeliosExt}') format('woff');
     }
     @font-face {
+        descent-override: 0%;
         font-family: "Helios-Ext-Bold";
         src: url('${HeliosExtBold}') format('woff');
     }
     @font-face {
-        font-family: "Europ-Ext-Bold";
+        font-family: "Europe-Ext-Bold";
         src: url('${EuropeExtBold}') format('woff');
     }
 
+    :root {
+        --accent: #FFE600;
+        --animation: 0.06s cubic-bezier(0.550, 0.385, 0.355, 1.000);
+    }
+
     html {
-        accent-color: red;
+        accent-color: var(--accent);
         box-sizing: border-box;
         font-family: 'Helios';
         font-size: 10px;
