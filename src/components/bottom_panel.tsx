@@ -6,41 +6,17 @@ import RulerImg from '../../public/img/ruler.svg';
 const BottomPanel = (): JSX.Element => {
     return(
         <Panel>
-                <div style={{
-                    width: "5%",
-                    background: "cyan",
-                    position: "relative",
-                    height: "max-content",
-                    minWidth: "0.6rem",
-                    overflow: "hidden",
-                    zIndex: "1"
-                    
-                }}>
-                    <p style={{
-                        color: "black",
-                        margin: '0',
-                        marginInlineStart: 'auto',
-                        fontFamily: "Europe-Ext-Bold",
-                        width: 'max-content',
-                    }}>
-                        -36:32
-                    </p>
-                    <div style={{
-                        position: "absolute",
-                        top: "100%",
-                        right: "0",
-                        background: "red",
-                        width: "0.6rem",
-                        height: "7rem",
-                    }}></div>
-                </div>
-                <p style={{
-                    position: "absolute",
-                    fontFamily: "Europe-Ext-Bold",
-                    margin: '0',
-                    color: "white",
-                    top: "0"
-                }}>-36:32</p>
+            <Slider>
+                <ProgressWrapper>
+                    <Progress>
+                        <ProgressTextForeground>-999:99</ProgressTextForeground>
+                    </Progress>
+                </ProgressWrapper>
+                <ProgressTextBackground>-999:99</ProgressTextBackground>
+            </Slider>
+            <Information>
+                <PlayButton />
+            </Information>
         </Panel>
     );
 };
@@ -53,11 +29,72 @@ const Panel = styled.div`
 
 const Slider = styled.div`
     background: url('${RulerImg}') black;
-    height: 6rem;
-    margin-inline: 3rem;
+    height: 6.8rem;
+    padding-inline: 3rem;
+    cursor: col-resize;
 
+    background-clip: content-box;
+    background-origin: content-box;
     background-position-y: bottom;
     background-repeat: repeat-x;
 `;
+
+const ProgressWrapper = styled.div`
+    position: relative;
+    width: max-content;
+
+    &:after {
+        background: var(--accent);
+        content: '';
+        height: 4.8rem;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        width: 0.6rem;
+    }
+`;
+
+const Progress = styled.div`
+    background: var(--accent);
+    height: 2rem;
+    min-width: 0.6rem;
+    max-width: 30rem;
+    overflow: hidden;
+    position: relative;
+    width: 5rem;
+    z-index: 1;
+`;
+
+const ProgressTextForeground = styled.p`
+    align-items: center;
+    color: black;
+    display: flex;
+    font-family: "Europe-Ext-Bold";
+    font-size: 1.4rem;
+    height: 2rem;
+    margin: 0;
+    padding-inline: 0.75rem 0.6rem;
+    user-select: none;
+    width: max-content;
+    margin-inline-start: auto;
+`;
+
+const ProgressTextBackground = styled.p`
+    align-items: center;
+    color: white;
+    display: flex;
+    font-family: "Europe-Ext-Bold";
+    font-size: 1.4rem;
+    height: 2rem;
+    margin: 0;
+    padding-inline-start: 0.75rem;
+    position: absolute;
+    top: 0;
+    user-select: none;
+`;
+
+const Information = styled.div``;
+
+const PlayButton = styled.div``;
 
 export default BottomPanel;

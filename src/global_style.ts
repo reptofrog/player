@@ -25,6 +25,7 @@ const GlobalStyle = createGlobalStyle`
         src: url('${HeliosExtBold}') format('woff');
     }
     @font-face {
+        descent-override: 0%;
         font-family: "Europe-Ext-Bold";
         src: url('${EuropeExtBold}') format('woff');
     }
