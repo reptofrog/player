@@ -11,10 +11,10 @@ const BottomPanel = (): JSX.Element => {
             <Slider>
                 <ProgressWrapper>
                     <Progress>
-                        <ProgressTextForeground>-999:99</ProgressTextForeground>
+                        <ProgressTextForeground>-00:00</ProgressTextForeground>
                     </Progress>
                 </ProgressWrapper>
-                <ProgressTextBackground>-999:99</ProgressTextBackground>
+                <ProgressTextBackground>-00:00</ProgressTextBackground>
             </Slider>
             <Information>
                 <InfoTitle>Boogie Oogie Oogie</InfoTitle>
@@ -99,16 +99,18 @@ const Information = styled.div`
     padding: 1rem;
 `;
 
-const InfoTitle = styled.div`
+const InfoTitle = styled.p`
     color: white;
     font-family: "Helios-Bold";
     font-size: 1.6rem;
+    margin: 0;
 `;
 
-const InfoSubtitle = styled.div`
+const InfoSubtitle = styled.p`
     color: white;
     font-family: "Helios";
     font-size: 1.4rem;
+    margin: 0;
 `;
 
 const PlayButton = styled.div`

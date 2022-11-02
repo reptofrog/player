@@ -23,6 +23,7 @@ const App = (): JSX.Element => {
 
 const Main = styled.main`
     background: #EEEEEE;
+    overflow: hidden;
     width: 36rem;
 `;
 
