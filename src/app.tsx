@@ -4,7 +4,7 @@ import { Fragment } from 'react';
 import GlobalStyle from './global_style';
 
 import TopPanel from './components/top_panel';
-import Tracklist from './components/tracklist';
+import Playlist from './components/playlist';
 import BottomPanel from './components/bottom_panel';
 
 
@@ -14,7 +14,7 @@ const App = (): JSX.Element => {
             <GlobalStyle />
             <Main>
                 <TopPanel />
-                <Tracklist />
+                <Playlist />
                 <BottomPanel />
             </Main>
         </Fragment>

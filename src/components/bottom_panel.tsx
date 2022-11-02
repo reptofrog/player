@@ -18,7 +18,7 @@ const BottomPanel = (): JSX.Element => {
             </Slider>
             <Information>
                 <InfoTitle>Boogie Oogie Oogie</InfoTitle>
-                <InfoSubtitle>Taste Of Honey</InfoSubtitle>
+                <InfoSubtitle>A Taste Of Honey</InfoSubtitle>
                 <PlayButton />
             </Information>
         </Panel>
