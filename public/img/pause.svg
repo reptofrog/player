@@ -33,23 +33,7 @@
      inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg9" />
-  <mask
-     id="mask0_4_299"
-     maskUnits="userSpaceOnUse"
-     x="0"
-     y="0"
-     width="24"
-     height="24">
-    <rect
-       width="24"
-       height="24"
-       fill="#d9d9d9"
-       id="rect2"
-       x="0"
-       y="0" />
-  </mask>
   <g
-     mask="url(#mask0_4_299)"
      id="g7"
      transform="translate(-5,-5)">
     <path

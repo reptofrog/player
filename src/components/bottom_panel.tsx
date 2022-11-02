@@ -104,6 +104,11 @@ const InfoTitle = styled.p`
     font-family: "Helios-Bold";
     font-size: 1.6rem;
     margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    margin-block-end: 0.2rem;
 `;
 
 const InfoSubtitle = styled.p`
@@ -111,6 +116,10 @@ const InfoSubtitle = styled.p`
     font-family: "Helios";
     font-size: 1.4rem;
     margin: 0;
+    max-width: 33ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 `;
 
 const PlayButton = styled.div`

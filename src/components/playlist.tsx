@@ -66,6 +66,11 @@ const TrackName = styled.p`
     font-family: "Helios-Bold";
     font-size: 1.6rem;
     margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    
+    margin-block-end: 0.2rem;
 `;
 
 const ArtistName = styled.p`
@@ -73,6 +78,9 @@ const ArtistName = styled.p`
     font-family: "Helios";
     font-size: 1.4rem;
     margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 `;
 
 export default Playlist;
