@@ -15,6 +15,8 @@ const BottomPanel = (): JSX.Element => {
                 <ProgressTextBackground>-999:99</ProgressTextBackground>
             </Slider>
             <Information>
+                <TrackName>Boogie Oogie Oogie</TrackName>
+                <ArtistName>Taste Of Honey</ArtistName>
                 <PlayButton />
             </Information>
         </Panel>
@@ -93,7 +95,13 @@ const ProgressTextBackground = styled.p`
     user-select: none;
 `;
 
-const Information = styled.div``;
+const Information = styled.div`
+    
+`;
+
+const TrackName = styled.div``;
+
+const ArtistName = styled.div``;
 
 const PlayButton = styled.div``;
 
