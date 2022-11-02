@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 import RulerImg from '../../public/img/ruler.svg';
+import PlayImg from '../../public/img/play.svg';
+import PauseImg from '../../public/img/pause.svg';
 
 
 const BottomPanel = (): JSX.Element => {
@@ -15,8 +17,8 @@ const BottomPanel = (): JSX.Element => {
                 <ProgressTextBackground>-999:99</ProgressTextBackground>
             </Slider>
             <Information>
-                <TrackName>Boogie Oogie Oogie</TrackName>
-                <ArtistName>Taste Of Honey</ArtistName>
+                <InfoTitle>Boogie Oogie Oogie</InfoTitle>
+                <InfoSubtitle>Taste Of Honey</InfoSubtitle>
                 <PlayButton />
             </Information>
         </Panel>
@@ -25,8 +27,8 @@ const BottomPanel = (): JSX.Element => {
 
 const Panel = styled.div`
     background: black;
-
-    position: relative; /*Remove me*/
+    position: relative;
+    user-select: none;
 `;
 
 const Slider = styled.div`
@@ -50,7 +52,7 @@ const ProgressWrapper = styled.div`
         content: '';
         height: 4.8rem;
         position: absolute;
-        right: 0;
+        inset-inline-end: 0;
         top: 100%;
         width: 0.6rem;
     }
@@ -76,7 +78,6 @@ const ProgressTextForeground = styled.p`
     height: 2rem;
     margin: 0;
     padding-inline: 0.75rem 0.6rem;
-    user-select: none;
     width: max-content;
     margin-inline-start: auto;
 `;
@@ -92,17 +93,43 @@ const ProgressTextBackground = styled.p`
     padding-inline-start: 0.75rem;
     position: absolute;
     top: 0;
-    user-select: none;
 `;
 
 const Information = styled.div`
-    
+    padding: 1rem;
 `;
 
-const TrackName = styled.div``;
+const InfoTitle = styled.div`
+    color: white;
+    font-family: "Helios-Bold";
+    font-size: 1.6rem;
+`;
 
-const ArtistName = styled.div``;
+const InfoSubtitle = styled.div`
+    color: white;
+    font-family: "Helios";
+    font-size: 1.4rem;
+`;
 
-const PlayButton = styled.div``;
+const PlayButton = styled.div`
+    background: url('${PauseImg}') #DCDCDC;
+    border-radius: 100rem;
+    cursor: pointer;
+    height: 2.9rem;
+    margin-block: -0.3rem 0;
+    margin-inline-start: auto;
+    outline: solid 0.2rem rgba(0, 0, 0, 0);
+    transition: var(--animation);
+    width: 7.3rem;
+
+    background-position: center 47%;
+    background-repeat: no-repeat;
+    outline-offset: -0.2rem;
+
+    &:hover {
+        outline: solid 0.2rem var(--accent); 
+        outline-offset: 0.2rem;
+    }
+`;
 
 export default BottomPanel;

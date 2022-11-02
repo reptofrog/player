@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="14"
+   height="14"
+   viewBox="0 0 14 14"
+   fill="none"
+   version="1.1"
+   id="svg9"
+   sodipodi:docname="pause.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs13" />
+  <sodipodi:namedview
+     id="namedview11"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="32.583333"
+     inkscape:cx="6.9974425"
+     inkscape:cy="6.9974425"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg9" />
+  <mask
+     id="mask0_4_299"
+     maskUnits="userSpaceOnUse"
+     x="0"
+     y="0"
+     width="24"
+     height="24">
+    <rect
+       width="24"
+       height="24"
+       fill="#d9d9d9"
+       id="rect2"
+       x="0"
+       y="0" />
+  </mask>
+  <g
+     mask="url(#mask0_4_299)"
+     id="g7"
+     transform="translate(-5,-5)">
+    <path
+       d="M 13,19 V 5 h 6 V 19 Z M 5,19 V 5 h 6 v 14 z"
+       fill="#000000"
+       id="path5" />
+  </g>
+</svg>
