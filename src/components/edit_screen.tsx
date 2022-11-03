@@ -39,8 +39,11 @@ const TrackName = styled.p`
     font-size: 2rem;
     line-height: 2.4rem;
     margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
-    margin-block-end: 0.2rem;
+    margin-block-end: 0.5rem;
 `;
 
 const ArtistName = styled.p`
@@ -48,6 +51,9 @@ const ArtistName = styled.p`
     font-size: 1.6rem;
     line-height: 2.4rem;
     margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
     margin-block-end: 2rem;
 `;
