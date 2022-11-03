@@ -4,7 +4,7 @@ import { Fragment } from 'react';
 import GlobalStyle from './global_style';
 
 import BottomPanel from './components/bottom_panel';
-import EditScreen from './components/edit_screen';
+import AddScreen from './components/add_screen';
 import Playlist from './components/playlist';
 import TopPanel from './components/top_panel';
 
@@ -15,7 +15,7 @@ const App = (): JSX.Element => {
             <GlobalStyle />
             <Main>
                 <TopPanel />
-                <EditScreen />
+                <AddScreen />
                 <BottomPanel />
             </Main>
         </Fragment>
