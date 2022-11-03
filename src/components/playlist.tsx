@@ -7,6 +7,7 @@ const Playlist = (): JSX.Element => {
             <Track>
                 <TrackName>Boogie Oogie Oogie</TrackName>
                 <ArtistName>A Taste Of Honey</ArtistName>
+                <RemovalButton />
             </Track>
             <Track>
                 <TrackName>Boogie Oogie Oogie</TrackName>
@@ -41,6 +42,7 @@ const Track = styled.div`
     padding-block: 1rem;
     padding-inline: 1rem;
     transition: var(--animation);
+    position: relative;
 
     outline-offset: -0.3rem;
 
@@ -81,6 +83,15 @@ const ArtistName = styled.p`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+`;
+
+const RemovalButton = styled.div`
+    aspect-ratio : 1 / 1;
+    background: red;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
 `;
 
 export default Playlist;
