@@ -5,6 +5,7 @@ import GlobalStyle from './global_style';
 
 import BottomPanel from './components/bottom_panel';
 import AddScreen from './components/add_screen';
+import EditScreen from './components/edit_screen';
 import Playlist from './components/playlist';
 import TopPanel from './components/top_panel';
 
@@ -15,7 +16,7 @@ const App = (): JSX.Element => {
             <GlobalStyle />
             <Main>
                 <TopPanel />
-                <AddScreen />
+                <EditScreen />
                 <BottomPanel />
             </Main>
         </Fragment>

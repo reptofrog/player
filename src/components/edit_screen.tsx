@@ -1,14 +1,11 @@
 import styled from 'styled-components';
 
 
-const AddScreen = (): JSX.Element => {
+const EditScreen = (): JSX.Element => {
     return(
         <Screen>
-            <ScreenTitle>Add any video from YouTube to your playlist</ScreenTitle>
-            <Cell>
-                <Title>Video link</Title>
-                <Input placeholder='Required'></Input>
-            </Cell>
+            <TrackName>Boogie Oogie Oogie</TrackName>
+            <ArtistName>A Taste Of Honey</ArtistName>
             <Cell>
                 <Title>Starting time</Title>
                 <Input placeholder='—'></Input>
@@ -17,12 +14,15 @@ const AddScreen = (): JSX.Element => {
                 <Title>Ending time</Title>
                 <Input placeholder='—'></Input>
             </Cell>
-            <Button>Add to playlist</Button>
+            <Button>Save track</Button>
+            <Button className='delete'>Delete</Button>
         </Screen>
     )
 };
 
 const Screen = styled.div`
+    display: flex;
+    flex-direction: column;
     height: 44.3rem;
     overflow: scroll;
     padding: 2rem;
@@ -34,9 +34,18 @@ const Screen = styled.div`
     }
 `;
 
-const ScreenTitle = styled.p`
-    font-family: 'Helios-Ext';
+const TrackName = styled.p`
+    font-family: 'Helios-Bold';
     font-size: 2rem;
+    line-height: 2.4rem;
+    margin: 0;
+
+    margin-block-end: 0.2rem;
+`;
+
+const ArtistName = styled.p`
+    font-family: 'Helios';
+    font-size: 1.6rem;
     line-height: 2.4rem;
     margin: 0;
 
@@ -55,10 +64,6 @@ const Cell = styled.div`
     border-inline-end-width: 0;
 
     &:nth-of-type(1) {
-        margin-block-end: 1rem;
-    }
-
-    &:nth-of-type(2) {
         border-block-end-width: 0;
     }
 
@@ -99,10 +104,15 @@ const Button = styled.div`
     outline-offset: -0.2rem;
 
     &:hover {
-        background: black;
+        background: black !important;
         box-shadow: none;
         color: white;
     }
+
+    &.delete {
+        background-color: var(--accent);
+        margin-block-start: auto;
+    }
 `;
 
-export default AddScreen;
+export default EditScreen;
