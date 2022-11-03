@@ -38,7 +38,7 @@ const List = styled.div`
 const Track = styled.div`
     cursor: pointer;
     outline: solid 0.2rem rgba(0, 0, 0, 0);
-    padding-block: 1rem 0.8rem;
+    padding-block: 1rem;
     padding-inline: 1rem;
     transition: var(--animation);
 

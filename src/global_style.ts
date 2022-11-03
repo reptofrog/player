@@ -8,14 +8,17 @@ import EuropeExtBold from '../public/fonts/Europe-Ext-Bold.woff';
 
 const GlobalStyle = createGlobalStyle`
     @font-face {
+        descent-override: 0%;
         font-family: "Helios";
         src: url('${Helios}') format('woff');
     }
     @font-face {
+        descent-override: 0%;
         font-family: "Helios-Bold";
         src: url('${HeliosBold}') format('woff');
     }
     @font-face {
+        descent-override: 0%;
         font-family: "Helios-Ext";
         src: url('${HeliosExt}') format('woff');
     }
