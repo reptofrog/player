@@ -17,7 +17,7 @@ const App = (): JSX.Element => {
             <GlobalStyle />
             <Main>
                 <TopPanel />
-                <Playlist />
+                <RemovalScreen />
                 <BottomPanel />
             </Main>
         </Fragment>

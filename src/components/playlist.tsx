@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 
+import CloseImg from '../../public/img/close.svg';
+
 
 const Playlist = (): JSX.Element => {
     return(
         <List>
             <Track>
+                <RemovalButton />
                 <TrackName>Boogie Oogie Oogie</TrackName>
                 <ArtistName>A Taste Of Honey</ArtistName>
-                <RemovalButton />
             </Track>
             <Track>
                 <TrackName>Boogie Oogie Oogie</TrackName>
@@ -86,12 +88,27 @@ const ArtistName = styled.p`
 `;
 
 const RemovalButton = styled.div`
-    aspect-ratio : 1 / 1;
-    background: red;
-    height: 100%;
-    position: absolute;
-    right: 0;
-    top: 0;
+    background: url('${CloseImg}');
+    border-radius: 100rem;
+    float: right;
+    height: 3rem;
+    margin: 0.35rem 0 0.35rem 0;
+    transition: var(--animation);
+    width: 3rem;
+    pointer-events: visible;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    &:hover {
+        background-color: white;
+        filter: invert(1);
+    }
+
+    &:active {
+        background-color: var(--accent);
+        filter: invert(0);
+    }
 `;
 
 export default Playlist;

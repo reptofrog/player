@@ -84,7 +84,7 @@ const Input = styled.input`
 
 const Button = styled.div`
     background: white;
-    border-radius: 0.6rem;
+    border-radius: 0.7rem;
     border: solid 0.1rem rgba(0, 0, 0, 0.10);
     box-shadow: 0px 0.05rem 0.2rem rgba(0, 0, 0, 0.05);
     cursor: pointer;
@@ -92,16 +92,22 @@ const Button = styled.div`
     margin-block-start: 2rem;
     margin-inline-start: auto;
     outline: solid 0.2rem rgba(0, 0, 0, 0); 
-    padding: 0.6rem 1rem;
+    padding: 0.5rem 1rem;
     transition: var(--animation);
     width: max-content;
 
     outline-offset: -0.2rem;
 
     &:hover {
-        background: black;
+        outline-offset: 0.2rem;
+        outline: solid 0.2rem rgba(0, 0, 0, 0.7); 
+    }
+
+    &:active {
+        background: black !important;
         box-shadow: none;
         color: white;
+        outline-offset: -0.2rem;
     }
 `;
 

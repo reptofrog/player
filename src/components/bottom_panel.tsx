@@ -141,6 +141,13 @@ const PlayButton = styled.div`
         outline: solid 0.2rem var(--accent); 
         outline-offset: 0.2rem;
     }
+
+    &:active {
+        background-color: var(--accent);
+        outline: solid 0.2rem rgba(0, 0, 0, 0); 
+
+        outline-offset: -0.2rem;
+    }
 `;
 
 export default BottomPanel;

@@ -75,23 +75,29 @@ const ArtistName = styled.p`
 
 const Button = styled.div`
         background: white;
-        border-radius: 0.6rem;
+        border-radius: 0.7rem;
         border: solid 0.1rem rgba(0, 0, 0, 0.10);
         box-shadow: 0px 0.05rem 0.2rem rgba(0, 0, 0, 0.05);
         cursor: pointer;
         flex: 1;
         font-size: 1.6rem;
         outline: solid 0.2rem rgba(0, 0, 0, 0); 
-        padding: 0.6rem 1rem;
+        padding: 0.5rem 1rem;
         text-align: center;
         transition: var(--animation);
 
     outline-offset: -0.2rem;
 
     &:hover {
+        outline-offset: 0.2rem;
+        outline: solid 0.2rem rgba(0, 0, 0, 0.7); 
+    }
+
+    &:active {
         background: black !important;
         box-shadow: none;
         color: white;
+        outline-offset: -0.2rem;
     }
 
     &.delete {
