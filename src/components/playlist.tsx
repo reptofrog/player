@@ -11,18 +11,6 @@ const Playlist = (): JSX.Element => {
                 <TrackName>Boogie Oogie Oogie</TrackName>
                 <ArtistName>A Taste Of Honey</ArtistName>
             </Track>
-            <Track>
-                <TrackName>Boogie Oogie Oogie</TrackName>
-                <ArtistName>A Taste Of Honey</ArtistName>
-            </Track>
-            <Track>
-                <TrackName>Boogie Oogie Oogie</TrackName>
-                <ArtistName>A Taste Of Honey</ArtistName>
-            </Track>
-            <Track>
-                <TrackName>Boogie Oogie Oogie</TrackName>
-                <ArtistName>A Taste Of Honey</ArtistName>
-            </Track>
         </List>
     );
 };
@@ -90,12 +78,12 @@ const ArtistName = styled.p`
 const RemovalButton = styled.div`
     background: url('${CloseImg}');
     border-radius: 100rem;
+    display: none;
     float: right;
     height: 3rem;
     margin: 0.35rem 0 0.35rem 0;
     transition: var(--animation);
     width: 3rem;
-    pointer-events: visible;
 
     background-position: center;
     background-repeat: no-repeat;

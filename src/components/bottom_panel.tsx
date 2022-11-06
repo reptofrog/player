@@ -1,3 +1,4 @@
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 
 import RulerImg from '../../public/img/ruler.svg';
@@ -6,11 +7,51 @@ import PauseImg from '../../public/img/pause.svg';
 
 
 const BottomPanel = (): JSX.Element => {
+    let isMouseHeld: boolean = false;
+    let x: number = 0;
+    const progressRef = useRef<HTMLDivElement>(null);
+
+    window.addEventListener('mousemove', (e: MouseEvent) => {
+        windowMouseMoveHandler(e);
+    });
+
+    window.addEventListener('mouseup', () => {
+        windowMouseUpHandler();
+    });
+
+    const windowMouseUpHandler = (): void => {
+        isMouseHeld = false;
+        document.body.style.cursor = 'unset';
+
+        let trackTimePercent = x / 300; // TODO: This would be a state change
+        // I need to somehow pause the rendering until mouse is up?
+    }
+
+    const sliderMouseDownHandler = (e: React.MouseEvent): void => {
+        isMouseHeld = true;
+        document.body.style.cursor = 'col-resize';
+        windowMouseMoveHandler(e as unknown as MouseEvent); // So that pos. would change on click
+    }
+
+    const windowMouseMoveHandler = (e: MouseEvent): void => {
+        if(isMouseHeld) {
+            const boundingClientRect = progressRef.current!.getBoundingClientRect();
+            x = e.pageX - boundingClientRect.left;
+            x += 3;
+            x = Math.max(0, x);
+            x = Math.min(300, x);
+
+            progressRef.current!.style.width = x / 10 + 'rem'; // TODO: Remove me
+        }
+    };
+
     return(
         <Panel>
-            <Slider>
+            <Slider
+                onMouseDown={sliderMouseDownHandler}
+            >
                 <ProgressWrapper>
-                    <Progress>
+                    <Progress ref={progressRef}>
                         <ProgressTextForeground>-00:00</ProgressTextForeground>
                     </Progress>
                 </ProgressWrapper>
@@ -48,7 +89,7 @@ const ProgressWrapper = styled.div`
     width: max-content;
 
     &:after {
-        background: var(--accent);
+        background: #858585;
         content: '';
         height: 4.8rem;
         position: absolute;
@@ -59,13 +100,13 @@ const ProgressWrapper = styled.div`
 `;
 
 const Progress = styled.div`
-    background: var(--accent);
+    background: #858585;
     height: 2rem;
     min-width: 0.6rem;
     max-width: 30rem;
     overflow: hidden;
     position: relative;
-    width: 5rem;
+    width: 0rem;
     z-index: 1;
 `;
 
@@ -123,7 +164,7 @@ const InfoSubtitle = styled.p`
 `;
 
 const PlayButton = styled.div`
-    background: url('${PauseImg}') #DCDCDC;
+    background: url('${PlayImg}') var(--accent);
     border-radius: 100rem;
     cursor: pointer;
     height: 2.9rem;
@@ -133,7 +174,7 @@ const PlayButton = styled.div`
     transition: var(--animation);
     width: 7.3rem;
 
-    background-position: center 47%;
+    background-position: 53% 47%;
     background-repeat: no-repeat;
     outline-offset: -0.2rem;
 
@@ -143,7 +184,7 @@ const PlayButton = styled.div`
     }
 
     &:active {
-        background-color: var(--accent);
+        background-color: #DCDCDC;
         outline: solid 0.2rem rgba(0, 0, 0, 0); 
 
         outline-offset: -0.2rem;
