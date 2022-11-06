@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
 import RulerImg from '../../public/img/ruler.svg';
@@ -7,43 +7,45 @@ import PauseImg from '../../public/img/pause.svg';
 
 
 const BottomPanel = (): JSX.Element => {
-    let isMouseHeld: boolean = false;
-    let x: number = 0;
     const progressRef = useRef<HTMLDivElement>(null);
 
-    window.addEventListener('mousemove', (e: MouseEvent) => {
-        windowMouseMoveHandler(e);
-    });
-
-    window.addEventListener('mouseup', () => {
-        windowMouseUpHandler();
-    });
+    const isMouseHeld = useRef(false);
+    const x = useRef(0);
 
     const windowMouseUpHandler = (): void => {
-        isMouseHeld = false;
+        isMouseHeld.current = false;
         document.body.style.cursor = 'unset';
 
-        let trackTimePercent = x / 300; // TODO: This would be a state change
-        // I need to somehow pause the rendering until mouse is up?
+        let trackTimePercent = x.current / 300; // TODO: This would be a state change
     }
 
     const sliderMouseDownHandler = (e: React.MouseEvent): void => {
-        isMouseHeld = true;
+        isMouseHeld.current = true;
         document.body.style.cursor = 'col-resize';
         windowMouseMoveHandler(e as unknown as MouseEvent); // So that pos. would change on click
     }
 
     const windowMouseMoveHandler = (e: MouseEvent): void => {
-        if(isMouseHeld) {
+        if(isMouseHeld.current) {
             const boundingClientRect = progressRef.current!.getBoundingClientRect();
-            x = e.pageX - boundingClientRect.left;
-            x += 3;
-            x = Math.max(0, x);
-            x = Math.min(300, x);
+            x.current = e.pageX - boundingClientRect.left;
+            x.current += 3;
+            x.current = Math.max(0, x.current);
+            x.current = Math.min(300, x.current);
 
-            progressRef.current!.style.width = x / 10 + 'rem'; // TODO: Remove me
+            progressRef.current!.style.width = x.current / 10 + 'rem'; // TODO: Remove me
         }
-    };
+    }
+
+    useEffect((): void => {
+        window.addEventListener('mousemove', (e: MouseEvent) => {
+            windowMouseMoveHandler(e);
+        });
+
+        window.addEventListener('mouseup', () => {
+            windowMouseUpHandler();
+        });
+    }, []);
 
     return(
         <Panel>
