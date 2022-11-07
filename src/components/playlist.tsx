@@ -8,7 +8,7 @@ const Playlist = (): JSX.Element => {
         <List>
             <Track>
                 <RemovalButton />
-                <TrackName>Boogie Oogie Oogie</TrackName>
+                <TrackName>No Track Playing</TrackName>
                 <ArtistName>A Taste Of Honey</ArtistName>
             </Track>
         </List>

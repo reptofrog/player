@@ -6,27 +6,29 @@ import PlayImg from '../../public/img/play.svg';
 import PauseImg from '../../public/img/pause.svg';
 
 
-const BottomPanel = (): JSX.Element => {
+const BottomPanel = (state: any): JSX.Element => {
+    state = state.state;
+
     const progressRef = useRef<HTMLDivElement>(null);
 
-    const isMouseHeld = useRef(false);
     const x = useRef(0);
 
     const windowMouseUpHandler = (): void => {
-        isMouseHeld.current = false;
+        state.set({'isMouseHeld': false});
         document.body.style.cursor = 'unset';
 
         let trackTimePercent = x.current / 300; // TODO: This would be a state change
     }
 
     const sliderMouseDownHandler = (e: React.MouseEvent): void => {
-        isMouseHeld.current = true;
+        state.set({'isMouseHeld': true});
+        console.log(state);
         document.body.style.cursor = 'col-resize';
         windowMouseMoveHandler(e as unknown as MouseEvent); // So that pos. would change on click
     }
 
     const windowMouseMoveHandler = (e: MouseEvent): void => {
-        if(isMouseHeld.current) {
+        if(state.get.isMouseHeld) {
             const boundingClientRect = progressRef.current!.getBoundingClientRect();
             x.current = e.pageX - boundingClientRect.left;
             x.current += 3;
@@ -60,8 +62,8 @@ const BottomPanel = (): JSX.Element => {
                 <ProgressTextBackground>-00:00</ProgressTextBackground>
             </Slider>
             <Information>
-                <InfoTitle>Boogie Oogie Oogie</InfoTitle>
-                <InfoSubtitle>A Taste Of Honey</InfoSubtitle>
+                <InfoTitle>No track is playing</InfoTitle>
+                <InfoSubtitle>—</InfoSubtitle>
                 <PlayButton />
             </Information>
         </Panel>

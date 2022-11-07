@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 
 import GlobalStyle from './global_style';
 
@@ -12,13 +12,27 @@ import TopPanel from './components/top_panel';
 
 
 const App = (): JSX.Element => {
+    const [get, set] = useState(
+        {
+            'tracks': localStorage.getItem('tracks'),
+
+            'currentScreen': 'songs',
+            'selectedForEditingTrackID': null,
+            'isMouseHeld': false,
+
+            'currentTrackID': localStorage.getItem('currentTrackID'),
+            'isCurrentTrackPlaying': false,
+            'currentTrackTimePercent': localStorage.getItem('currentTrackTimePercent')
+        }
+    );
+
     return(
         <Fragment>
             <GlobalStyle />
             <Main>
                 <TopPanel />
                 <Playlist />
-                <BottomPanel />
+                <BottomPanel state={{get, set}}/>
             </Main>
         </Fragment>
     );
