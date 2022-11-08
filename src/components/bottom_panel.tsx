@@ -57,7 +57,7 @@ const BottomPanel = (state: any): JSX.Element => {
 
         window.addEventListener('mousemove', mouseMoveListener);
         window.addEventListener('mouseup', windowMouseUpHandler);
-
+        
         if(!state.get.isMouseHeld) {
             // Song progress must not be updated while a user interacts with the slider
             setX(state.get.currentTrackTimePercent * 300);
