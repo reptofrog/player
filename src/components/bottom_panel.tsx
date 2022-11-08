@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import RulerImg from '../../public/img/ruler.svg';
@@ -11,7 +11,15 @@ const BottomPanel = (state: any): JSX.Element => {
 
     const progressRef = useRef<HTMLDivElement>(null);
 
-    const x = useRef(0);
+    const [x, setX] = useState(0);
+
+    const calculateAndSetX = (e: MouseEvent) => {
+        const boundingClientRect = progressRef.current!.getBoundingClientRect();
+        setX(e.pageX - boundingClientRect.left);
+        setX(prevX => prevX + 3);
+        setX(prevX => Math.max(0, prevX));
+        setX(prevX => Math.min(300, prevX));
+    }
 
     const sliderMouseDownHandler = (e: React.MouseEvent): void => {
         state.set((prevState: any) => {
@@ -21,41 +29,39 @@ const BottomPanel = (state: any): JSX.Element => {
             }
         });
         document.body.style.cursor = 'col-resize';
-        windowMouseMoveHandler(e as unknown as MouseEvent); // So that pos. would change on click
+        calculateAndSetX(e as unknown as MouseEvent);
     }
 
     const windowMouseUpHandler = (): void => {
         state.set((prevState: any) => {
             return {
                 ...prevState,
-                'isMouseHeld': false
+                'isMouseHeld': false,
+                'currentTrackTimePercent': x / 300
             }
         });
         document.body.style.cursor = 'unset';
     }
 
     const windowMouseMoveHandler = (e: MouseEvent): void => {
-        console.log(state.get.isMouseHeld);
         if(state.get.isMouseHeld) {
-            const boundingClientRect = progressRef.current!.getBoundingClientRect();
-            x.current = e.pageX - boundingClientRect.left;
-            x.current += 3;
-            x.current = Math.max(0, x.current);
-            x.current = Math.min(300, x.current);
-
-            progressRef.current!.style.width = x.current / 10 + 'rem'; // TODO: Remove me
+            calculateAndSetX(e);
         }
     }
 
-    useEffect((): void => {
-        window.addEventListener('mousemove', (e: MouseEvent) => {
+    useEffect(() => {
+        function mouseMoveListener(e: any) {
             windowMouseMoveHandler(e);
-        });
+        } // This is needed so that we refer to the same place in memory
 
-        window.addEventListener('mouseup', () => {
-            windowMouseUpHandler();
-        });
-    }, []);
+        window.addEventListener('mousemove', mouseMoveListener);
+        window.addEventListener('mouseup', windowMouseUpHandler);
+
+        return () => {
+            window.removeEventListener('mousemove', mouseMoveListener);
+            window.removeEventListener('mouseup', windowMouseUpHandler);
+        }
+    });
 
     return(
         <Panel>
@@ -63,7 +69,7 @@ const BottomPanel = (state: any): JSX.Element => {
                 onMouseDown={sliderMouseDownHandler}
             >
                 <ProgressWrapper>
-                    <Progress ref={progressRef}>
+                    <Progress ref={progressRef} x={x}>
                         <ProgressTextForeground>-00:00</ProgressTextForeground>
                     </Progress>
                 </ProgressWrapper>
@@ -111,14 +117,18 @@ const ProgressWrapper = styled.div`
     }
 `;
 
-const Progress = styled.div`
+interface Props {
+    x: number
+}
+
+const Progress = styled.div<Props>`
     background: #858585;
     height: 2rem;
     min-width: 0.6rem;
     max-width: 30rem;
     overflow: hidden;
     position: relative;
-    width: 0rem;
+    width: ${props => props.x / 10}rem;
     z-index: 1;
 `;
 
