@@ -51,11 +51,17 @@ const BottomPanel = (state: any): JSX.Element => {
 
     useEffect(() => {
         function mouseMoveListener(e: any) {
+            // This is needed so that we refer to the same place in memory
             windowMouseMoveHandler(e);
-        } // This is needed so that we refer to the same place in memory
+        }
 
         window.addEventListener('mousemove', mouseMoveListener);
         window.addEventListener('mouseup', windowMouseUpHandler);
+
+        if(!state.get.isMouseHeld) {
+            // Song progress must not be updated while a user interacts with the slider
+            setX(state.get.currentTrackTimePercent * 300);
+        }
 
         return () => {
             window.removeEventListener('mousemove', mouseMoveListener);
@@ -69,7 +75,7 @@ const BottomPanel = (state: any): JSX.Element => {
                 onMouseDown={sliderMouseDownHandler}
             >
                 <ProgressWrapper>
-                    <Progress ref={progressRef} x={x}>
+                    <Progress ref={progressRef} style={{width: `${x / 10}rem`}}>
                         <ProgressTextForeground>-00:00</ProgressTextForeground>
                     </Progress>
                 </ProgressWrapper>
@@ -117,18 +123,13 @@ const ProgressWrapper = styled.div`
     }
 `;
 
-interface Props {
-    x: number
-}
-
-const Progress = styled.div<Props>`
+const Progress = styled.div`
     background: #858585;
     height: 2rem;
     min-width: 0.6rem;
     max-width: 30rem;
     overflow: hidden;
     position: relative;
-    width: ${props => props.x / 10}rem;
     z-index: 1;
 `;
 
