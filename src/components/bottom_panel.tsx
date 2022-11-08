@@ -13,19 +13,29 @@ const BottomPanel = (state: any): JSX.Element => {
 
     const x = useRef(0);
 
-    const windowMouseUpHandler = (): void => {
-        state.set({'isMouseHeld': false});
-        document.body.style.cursor = 'unset';
-    }
-
     const sliderMouseDownHandler = (e: React.MouseEvent): void => {
-        state.set({'isMouseHeld': true});
+        state.set((prevState: any) => {
+            return {
+                ...prevState,
+                'isMouseHeld': true
+            }
+        });
         document.body.style.cursor = 'col-resize';
         windowMouseMoveHandler(e as unknown as MouseEvent); // So that pos. would change on click
     }
 
+    const windowMouseUpHandler = (): void => {
+        state.set((prevState: any) => {
+            return {
+                ...prevState,
+                'isMouseHeld': false
+            }
+        });
+        document.body.style.cursor = 'unset';
+    }
+
     const windowMouseMoveHandler = (e: MouseEvent): void => {
-        console.log(state.get.currentScreen);
+        console.log(state.get.isMouseHeld);
         if(state.get.isMouseHeld) {
             const boundingClientRect = progressRef.current!.getBoundingClientRect();
             x.current = e.pageX - boundingClientRect.left;
