@@ -16,18 +16,16 @@ const BottomPanel = (state: any): JSX.Element => {
     const windowMouseUpHandler = (): void => {
         state.set({'isMouseHeld': false});
         document.body.style.cursor = 'unset';
-
-        let trackTimePercent = x.current / 300; // TODO: This would be a state change
     }
 
     const sliderMouseDownHandler = (e: React.MouseEvent): void => {
         state.set({'isMouseHeld': true});
-        console.log(state);
         document.body.style.cursor = 'col-resize';
         windowMouseMoveHandler(e as unknown as MouseEvent); // So that pos. would change on click
     }
 
     const windowMouseMoveHandler = (e: MouseEvent): void => {
+        console.log(state.get.currentScreen);
         if(state.get.isMouseHeld) {
             const boundingClientRect = progressRef.current!.getBoundingClientRect();
             x.current = e.pageX - boundingClientRect.left;
@@ -63,7 +61,7 @@ const BottomPanel = (state: any): JSX.Element => {
             </Slider>
             <Information>
                 <InfoTitle>No track is playing</InfoTitle>
-                <InfoSubtitle>—</InfoSubtitle>
+                <InfoSubtitle>Select any track from the playlist</InfoSubtitle>
                 <PlayButton />
             </Information>
         </Panel>
