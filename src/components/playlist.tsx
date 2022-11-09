@@ -1,11 +1,83 @@
+import { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 import CloseImg from '../../public/img/close.svg';
 
 
-const Playlist = (): JSX.Element => {
+const Playlist = (state: any): JSX.Element => {
+    state = state.state;
+
+    const listRef = useRef<HTMLDivElement>(null);
+
+    const listScrollHandle = (e: any) => {
+        let currentTarget = e.currentTarget;
+        state.set((prevState: any) => {
+            return {
+                ...prevState,
+                'playlistScroll': currentTarget.scrollTop
+            }
+        });
+    };
+
+    useEffect(() => {
+        listRef.current!.scrollTo(0, state.get.playlistScroll);
+    }, [])
+
     return(
-        <List>
+        <List
+            onScroll={listScrollHandle}
+            ref={listRef}
+        >
+            <Track>
+                <RemovalButton />
+                <TrackName>No Track Playing</TrackName>
+                <ArtistName>A Taste Of Honey</ArtistName>
+            </Track>
+            <Track>
+                <RemovalButton />
+                <TrackName>No Track Playing</TrackName>
+                <ArtistName>A Taste Of Honey</ArtistName>
+            </Track>
+            <Track>
+                <RemovalButton />
+                <TrackName>No Track Playing</TrackName>
+                <ArtistName>A Taste Of Honey</ArtistName>
+            </Track>
+            <Track>
+                <RemovalButton />
+                <TrackName>No Track Playing</TrackName>
+                <ArtistName>A Taste Of Honey</ArtistName>
+            </Track>
+            <Track>
+                <RemovalButton />
+                <TrackName>No Track Playing</TrackName>
+                <ArtistName>A Taste Of Honey</ArtistName>
+            </Track>
+            <Track>
+                <RemovalButton />
+                <TrackName>No Track Playing</TrackName>
+                <ArtistName>A Taste Of Honey</ArtistName>
+            </Track>
+            <Track>
+                <RemovalButton />
+                <TrackName>No Track Playing</TrackName>
+                <ArtistName>A Taste Of Honey</ArtistName>
+            </Track>
+            <Track>
+                <RemovalButton />
+                <TrackName>No Track Playing</TrackName>
+                <ArtistName>A Taste Of Honey</ArtistName>
+            </Track>
+            <Track>
+                <RemovalButton />
+                <TrackName>No Track Playing</TrackName>
+                <ArtistName>A Taste Of Honey</ArtistName>
+            </Track>
+            <Track>
+                <RemovalButton />
+                <TrackName>No Track Playing</TrackName>
+                <ArtistName>A Taste Of Honey</ArtistName>
+            </Track>
             <Track>
                 <RemovalButton />
                 <TrackName>No Track Playing</TrackName>

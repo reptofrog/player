@@ -19,6 +19,7 @@ const App = (): JSX.Element => {
             'currentScreen': 'songs',
             'selectedForEditingTrackID': null,
             'isMouseHeld': false,
+            'playlistScroll': 0,
 
             'currentTrackID': localStorage.getItem('currentTrackID'),
             'isCurrentTrackPlaying': false,
@@ -37,9 +38,8 @@ const App = (): JSX.Element => {
             <GlobalStyle />
             <Main>
                 <TopPanel state={{get, set}}/>
-                {get.currentScreen == 'songs' ? <Playlist /> : <></>}
-                {get.currentScreen == 'add'   ? <AddScreen /> : <></>}
-                {get.currentScreen == 'edit'  ? <EditScreen /> : <></>}
+                {get.currentScreen == 'songs' || get.currentScreen == 'edit' ? <Playlist state={{get, set}}/> : <></>}
+                {get.currentScreen == 'add' ? <AddScreen /> : <></>}
                 <BottomPanel state={{get, set}}/>
             </Main>
         </Fragment>

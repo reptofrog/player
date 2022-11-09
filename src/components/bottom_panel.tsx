@@ -14,11 +14,13 @@ const BottomPanel = (state: any): JSX.Element => {
     const [x, setX] = useState(0);
 
     const calculateAndSetX = (e: MouseEvent) => {
-        const boundingClientRect = progressRef.current!.getBoundingClientRect();
-        setX(e.pageX - boundingClientRect.left);
-        setX(prevX => prevX + 3);
-        setX(prevX => Math.max(0, prevX));
-        setX(prevX => Math.min(300, prevX));
+        if(state.get.currentTrackID != 'null') {
+            const boundingClientRect = progressRef.current!.getBoundingClientRect();
+            setX(e.pageX - boundingClientRect.left);
+            setX(prevX => prevX + 3);
+            setX(prevX => Math.max(0, prevX));
+            setX(prevX => Math.min(300, prevX));
+        }
     }
 
     const sliderMouseDownHandler = (e: React.MouseEvent): void => {
