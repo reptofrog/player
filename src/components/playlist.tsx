@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 import CloseImg from '../../public/img/close.svg';
@@ -29,57 +29,57 @@ const Playlist = (state: any): JSX.Element => {
             ref={listRef}
         >
             <Track>
-                <RemovalButton />
+                <RemovalButton currentScreen={state.get.currentScreen}/>
                 <TrackName>No Track Playing</TrackName>
                 <ArtistName>A Taste Of Honey</ArtistName>
             </Track>
             <Track>
-                <RemovalButton />
+                <RemovalButton currentScreen={state.get.currentScreen}/>
                 <TrackName>No Track Playing</TrackName>
                 <ArtistName>A Taste Of Honey</ArtistName>
             </Track>
             <Track>
-                <RemovalButton />
+                <RemovalButton currentScreen={state.get.currentScreen}/>
                 <TrackName>No Track Playing</TrackName>
                 <ArtistName>A Taste Of Honey</ArtistName>
             </Track>
             <Track>
-                <RemovalButton />
+                <RemovalButton currentScreen={state.get.currentScreen}/>
                 <TrackName>No Track Playing</TrackName>
                 <ArtistName>A Taste Of Honey</ArtistName>
             </Track>
             <Track>
-                <RemovalButton />
+                <RemovalButton currentScreen={state.get.currentScreen}/>
                 <TrackName>No Track Playing</TrackName>
                 <ArtistName>A Taste Of Honey</ArtistName>
             </Track>
             <Track>
-                <RemovalButton />
+                <RemovalButton currentScreen={state.get.currentScreen}/>
                 <TrackName>No Track Playing</TrackName>
                 <ArtistName>A Taste Of Honey</ArtistName>
             </Track>
             <Track>
-                <RemovalButton />
+                <RemovalButton currentScreen={state.get.currentScreen}/>
                 <TrackName>No Track Playing</TrackName>
                 <ArtistName>A Taste Of Honey</ArtistName>
             </Track>
             <Track>
-                <RemovalButton />
+                <RemovalButton currentScreen={state.get.currentScreen}/>
                 <TrackName>No Track Playing</TrackName>
                 <ArtistName>A Taste Of Honey</ArtistName>
             </Track>
             <Track>
-                <RemovalButton />
+                <RemovalButton currentScreen={state.get.currentScreen}/>
                 <TrackName>No Track Playing</TrackName>
                 <ArtistName>A Taste Of Honey</ArtistName>
             </Track>
             <Track>
-                <RemovalButton />
+                <RemovalButton currentScreen={state.get.currentScreen}/>
                 <TrackName>No Track Playing</TrackName>
                 <ArtistName>A Taste Of Honey</ArtistName>
             </Track>
             <Track>
-                <RemovalButton />
+                <RemovalButton currentScreen={state.get.currentScreen}/>
                 <TrackName>No Track Playing</TrackName>
                 <ArtistName>A Taste Of Honey</ArtistName>
             </Track>
@@ -147,13 +147,18 @@ const ArtistName = styled.p`
     white-space: nowrap;
 `;
 
-const RemovalButton = styled.div`
+interface Props {
+    currentScreen: string
+}
+
+const RemovalButton = styled.div<Props>`
     background: url('${CloseImg}');
     border-radius: 100rem;
-    display: none;
+    display: ${(props): any => {return props.currentScreen == 'edit' ? 'unset': 'none'}};
     float: right;
     height: 3rem;
     margin: 0.35rem 0 0.35rem 0;
+    pointer-events: ${(props): any => {return props.currentScreen == 'edit' ? 'unset': 'none'}};
     transition: var(--animation);
     width: 3rem;
 
