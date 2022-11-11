@@ -45,7 +45,7 @@ const Playlist = (state: any): JSX.Element => {
 };
 
 const List = styled.div`
-    height: 44.3rem;
+    height: 100%;
     overflow: scroll;
     scrollbar-width: none;
     user-select: none;

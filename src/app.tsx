@@ -38,8 +38,16 @@ const App = (): JSX.Element => {
             <GlobalStyle />
             <Main>
                 <TopPanel state={{get, set}}/>
-                {get.currentScreen == 'songs' || get.currentScreen == 'edit' ? <Playlist state={{get, set}}/> : <></>}
-                {get.currentScreen == 'add' ? <AddScreen /> : <></>}
+                {
+                    get.currentScreen == 'songs' || get.currentScreen == 'edit'
+                        ? <Playlist state={{get, set}}/>
+                        : <></>
+                }
+                {
+                    get.currentScreen == 'add'
+                        ? <AddScreen />
+                        : <></>
+                }
                 <BottomPanel state={{get, set}}/>
             </Main>
         </Fragment>
@@ -48,6 +56,9 @@ const App = (): JSX.Element => {
 
 const Main = styled.main`
     background: #EEEEEE;
+    display: flex;
+    flex-direction: column;
+    height: 64rem;
     overflow: hidden;
     width: 36rem;
 `;

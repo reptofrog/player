@@ -48,6 +48,7 @@ const Panel = styled.div`
     display: flex;
     gap: 3rem;
     height: 5rem;
+    min-height: 5rem;
     padding: 1rem 2rem;
 `;
 

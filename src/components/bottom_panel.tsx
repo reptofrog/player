@@ -8,6 +8,7 @@ import PauseImg from '../../public/img/pause.svg';
 
 const BottomPanel = (state: any): JSX.Element => {
     state = state.state;
+    console.log(state.get.currentTrackID);
 
     const progressRef = useRef<HTMLDivElement>(null);
 
@@ -71,41 +72,52 @@ const BottomPanel = (state: any): JSX.Element => {
         }
     });
     
-    const render = (): any => {
-        if(state.get.currentScreen != 'edit') {
-            return(
-                <Panel>
-                    <Slider
-                        onMouseDown={sliderMouseDownHandler}
-                        >
-                        <ProgressWrapper>
-                            <Progress ref={progressRef} style={{width: `${x / 10}rem`}}>
-                                <ProgressTextForeground>-00:00</ProgressTextForeground>
-                            </Progress>
-                        </ProgressWrapper>
-                        <ProgressTextBackground>-00:00</ProgressTextBackground>
-                    </Slider>
-                    <Information>
-                        <InfoTitle>No track is playing</InfoTitle>
-                        <InfoSubtitle>Select any track from the playlist</InfoSubtitle>
-                        <PlayButton />
-                    </Information>
-                </Panel>
-            )
-        } else {
-            return(
-                <Panel>
-                    <Information>
-                        <InfoTitle className="withMargin">You are editing the playlist</InfoTitle>
-                        <InfoSubtitle>Tap a track to edit</InfoSubtitle>
-                        <PlayButton />
-                    </Information>
-                </Panel>
-            )
-        }
-    };
+    const playButtonClickHandler = () => {
+        state.set((prevState: any) => {
+            return {
+                ...prevState,
+                'isCurrentTrackPlaying': !state.get.isCurrentTrackPlaying
+            }
+        });
+    }
 
-    return(render());
+    if(state.get.currentScreen != 'edit') {
+        return(
+            <Panel>
+                <Slider
+                    onMouseDown={sliderMouseDownHandler}
+                    >
+                    <ProgressWrapper>
+                        <Progress ref={progressRef} style={{width: `${x / 10}rem`}}>
+                            <ProgressTextForeground>-00:00</ProgressTextForeground>
+                        </Progress>
+                    </ProgressWrapper>
+                    <ProgressTextBackground>-00:00</ProgressTextBackground>
+                </Slider>
+                <Information>
+                    <InfoTitle>No track is playing</InfoTitle>
+                    <InfoSubtitle>Select any track from the playlist</InfoSubtitle>
+                    <PlayButton
+                        isCurrentTrackPlaying={state.get.isCurrentTrackPlaying}
+                        onClick={playButtonClickHandler}
+                    />
+                </Information>
+            </Panel>
+        )
+    } else {
+        return(
+            <Panel>
+                <Information>
+                    <InfoTitle className="withMargin">You are editing the playlist</InfoTitle>
+                    <InfoSubtitle>Tap a track to edit</InfoSubtitle>
+                    <PlayButton
+                        isCurrentTrackPlaying={state.get.isCurrentTrackPlaying}
+                        onClick={playButtonClickHandler}
+                    />
+                </Information>
+            </Panel>
+        )
+    }
 };
 
 const Panel = styled.div`
@@ -208,8 +220,19 @@ const InfoSubtitle = styled.p`
     white-space: nowrap;
 `;
 
-const PlayButton = styled.div`
-    background: url('${PlayImg}') var(--accent);
+interface Props {
+    isCurrentTrackPlaying: boolean
+}
+
+const PlayButton = styled.div<Props>`
+    background: ${(props): any => {
+            if(props.isCurrentTrackPlaying) {
+                return `url('${PlayImg}') var(--accent);`
+            } else {
+                return `url('${PauseImg}') #DCDCDC;`
+            }
+        }
+    }
     border-radius: 100rem;
     cursor: pointer;
     height: 2.9rem;
@@ -219,7 +242,7 @@ const PlayButton = styled.div`
     transition: var(--animation);
     width: 7.3rem;
 
-    background-position: 53% 47%;
+    background-position: ${(props): any => {return props.isCurrentTrackPlaying ? '53%': '50%'}} 47%;
     background-repeat: no-repeat;
     outline-offset: -0.2rem;
 

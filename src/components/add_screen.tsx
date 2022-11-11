@@ -23,7 +23,7 @@ const AddScreen = (): JSX.Element => {
 };
 
 const Screen = styled.div`
-    height: 44.3rem;
+    height: 100%;
     overflow: scroll;
     padding: 2rem;
     scrollbar-width: none;
