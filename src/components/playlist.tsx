@@ -19,6 +19,10 @@ const Playlist = (state: any): JSX.Element => {
         });
     };
 
+    const removalButtonClickHandler = (e: any) => {
+        
+    }
+
     useEffect(() => {
         listRef.current!.scrollTo(0, state.get.playlistScroll);
     }, [])
@@ -29,57 +33,10 @@ const Playlist = (state: any): JSX.Element => {
             ref={listRef}
         >
             <Track>
-                <RemovalButton currentScreen={state.get.currentScreen}/>
-                <TrackName>No Track Playing</TrackName>
-                <ArtistName>A Taste Of Honey</ArtistName>
-            </Track>
-            <Track>
-                <RemovalButton currentScreen={state.get.currentScreen}/>
-                <TrackName>No Track Playing</TrackName>
-                <ArtistName>A Taste Of Honey</ArtistName>
-            </Track>
-            <Track>
-                <RemovalButton currentScreen={state.get.currentScreen}/>
-                <TrackName>No Track Playing</TrackName>
-                <ArtistName>A Taste Of Honey</ArtistName>
-            </Track>
-            <Track>
-                <RemovalButton currentScreen={state.get.currentScreen}/>
-                <TrackName>No Track Playing</TrackName>
-                <ArtistName>A Taste Of Honey</ArtistName>
-            </Track>
-            <Track>
-                <RemovalButton currentScreen={state.get.currentScreen}/>
-                <TrackName>No Track Playing</TrackName>
-                <ArtistName>A Taste Of Honey</ArtistName>
-            </Track>
-            <Track>
-                <RemovalButton currentScreen={state.get.currentScreen}/>
-                <TrackName>No Track Playing</TrackName>
-                <ArtistName>A Taste Of Honey</ArtistName>
-            </Track>
-            <Track>
-                <RemovalButton currentScreen={state.get.currentScreen}/>
-                <TrackName>No Track Playing</TrackName>
-                <ArtistName>A Taste Of Honey</ArtistName>
-            </Track>
-            <Track>
-                <RemovalButton currentScreen={state.get.currentScreen}/>
-                <TrackName>No Track Playing</TrackName>
-                <ArtistName>A Taste Of Honey</ArtistName>
-            </Track>
-            <Track>
-                <RemovalButton currentScreen={state.get.currentScreen}/>
-                <TrackName>No Track Playing</TrackName>
-                <ArtistName>A Taste Of Honey</ArtistName>
-            </Track>
-            <Track>
-                <RemovalButton currentScreen={state.get.currentScreen}/>
-                <TrackName>No Track Playing</TrackName>
-                <ArtistName>A Taste Of Honey</ArtistName>
-            </Track>
-            <Track>
-                <RemovalButton currentScreen={state.get.currentScreen}/>
+                <RemovalButton
+                    currentScreen={state.get.currentScreen}
+                    onClick={removalButtonClickHandler}
+                />
                 <TrackName>No Track Playing</TrackName>
                 <ArtistName>A Taste Of Honey</ArtistName>
             </Track>

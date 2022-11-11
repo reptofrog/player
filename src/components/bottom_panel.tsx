@@ -70,26 +70,42 @@ const BottomPanel = (state: any): JSX.Element => {
             window.removeEventListener('mouseup', windowMouseUpHandler);
         }
     });
+    
+    const render = (): any => {
+        if(state.get.currentScreen != 'edit') {
+            return(
+                <Panel>
+                    <Slider
+                        onMouseDown={sliderMouseDownHandler}
+                        >
+                        <ProgressWrapper>
+                            <Progress ref={progressRef} style={{width: `${x / 10}rem`}}>
+                                <ProgressTextForeground>-00:00</ProgressTextForeground>
+                            </Progress>
+                        </ProgressWrapper>
+                        <ProgressTextBackground>-00:00</ProgressTextBackground>
+                    </Slider>
+                    <Information>
+                        <InfoTitle>No track is playing</InfoTitle>
+                        <InfoSubtitle>Select any track from the playlist</InfoSubtitle>
+                        <PlayButton />
+                    </Information>
+                </Panel>
+            )
+        } else {
+            return(
+                <Panel>
+                    <Information>
+                        <InfoTitle className="withMargin">You are editing the playlist</InfoTitle>
+                        <InfoSubtitle>Tap a track to edit</InfoSubtitle>
+                        <PlayButton />
+                    </Information>
+                </Panel>
+            )
+        }
+    };
 
-    return(
-        <Panel>
-            <Slider
-                onMouseDown={sliderMouseDownHandler}
-            >
-                <ProgressWrapper>
-                    <Progress ref={progressRef} style={{width: `${x / 10}rem`}}>
-                        <ProgressTextForeground>-00:00</ProgressTextForeground>
-                    </Progress>
-                </ProgressWrapper>
-                <ProgressTextBackground>-00:00</ProgressTextBackground>
-            </Slider>
-            <Information>
-                <InfoTitle>No track is playing</InfoTitle>
-                <InfoSubtitle>Select any track from the playlist</InfoSubtitle>
-                <PlayButton />
-            </Information>
-        </Panel>
-    );
+    return(render());
 };
 
 const Panel = styled.div`
@@ -175,6 +191,10 @@ const InfoTitle = styled.p`
     white-space: nowrap;
 
     margin-block-end: 0.2rem;
+
+    &.withMargin {
+        margin-block-end: 0.5rem;
+    }
 `;
 
 const InfoSubtitle = styled.p`
