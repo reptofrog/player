@@ -8,7 +8,6 @@ import PauseImg from '../../public/img/pause.svg';
 
 const BottomPanel = (state: any): JSX.Element => {
     state = state.state;
-    console.log(state.get.currentTrackID);
 
     const progressRef = useRef<HTMLDivElement>(null);
 
@@ -87,8 +86,14 @@ const BottomPanel = (state: any): JSX.Element => {
                 <Slider
                     onMouseDown={sliderMouseDownHandler}
                     >
-                    <ProgressWrapper>
-                        <Progress ref={progressRef} style={{width: `${x / 10}rem`}}>
+                    <ProgressWrapper
+                        className={`${state.get.isCurrentTrackPlaying ? 'playing' : ''}`}
+                    >
+                        <Progress
+                            ref={progressRef}
+                            style={{width: `${x / 10}rem`}}
+                            className={`${state.get.isCurrentTrackPlaying ? 'playing' : ''}`}
+                        >
                             <ProgressTextForeground>-00:00</ProgressTextForeground>
                         </Progress>
                     </ProgressWrapper>
@@ -146,21 +151,35 @@ const ProgressWrapper = styled.div`
         background: #858585;
         content: '';
         height: 4.8rem;
-        position: absolute;
         inset-inline-end: 0;
+        position: absolute;
         top: 100%;
+        transition: var(--animation);
         width: 0.6rem;
+
+        transition-property: background;
+    }
+
+    &.playing:after {
+        background-color: var(--accent);
     }
 `;
 
 const Progress = styled.div`
     background: #858585;
     height: 2rem;
-    min-width: 0.6rem;
     max-width: 30rem;
+    min-width: 0.6rem;
     overflow: hidden;
     position: relative;
+    transition: var(--animation);
     z-index: 1;
+
+    transition-property: background;
+
+    &.playing {
+        background-color: var(--accent);
+    }
 `;
 
 const ProgressTextForeground = styled.p`
@@ -232,7 +251,7 @@ const PlayButton = styled.div<Props>`
                 return `url('${PauseImg}') #DCDCDC;`
             }
         }
-    }
+    };
     border-radius: 100rem;
     cursor: pointer;
     height: 2.9rem;
@@ -247,12 +266,12 @@ const PlayButton = styled.div<Props>`
     outline-offset: -0.2rem;
 
     &:hover {
-        outline: solid 0.2rem var(--accent); 
+        outline: solid 0.2rem var(--accent);
         outline-offset: 0.2rem;
     }
 
     &:active {
-        background-color: #DCDCDC;
+        background-color: ${(props): any => {return props.isCurrentTrackPlaying ? '#DCDCDC' : 'var(--accent)'}};
         outline: solid 0.2rem rgba(0, 0, 0, 0); 
 
         outline-offset: -0.2rem;
