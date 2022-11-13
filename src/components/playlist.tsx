@@ -19,7 +19,16 @@ const Playlist = (state: any): JSX.Element => {
         });
     };
 
-    const removalButtonClickHandler = (e: any, id: number) => {
+    const removalButtonClickHandler = (id: number) => {
+        state.set((prevState: any) => {
+            return {
+                ...prevState,
+                'currentScreen': 'remove',
+                'selectedForEditingTrackID': id
+            }
+        });
+
+        /*
         let tracks = state.get.tracks;
 
         let tracks_filtered = tracks.data.filter((track: any) => {
@@ -39,6 +48,7 @@ const Playlist = (state: any): JSX.Element => {
                 'tracks': tracks_filtered
             }
         });
+        */
     }
 
     useEffect(() => {
@@ -54,7 +64,7 @@ const Playlist = (state: any): JSX.Element => {
                     <Track key={track.id}>
                         <RemovalButton
                             currentScreen={state.get.currentScreen}
-                            onClick={e => removalButtonClickHandler(e, track.id)}
+                            onClick={() => removalButtonClickHandler(track.id)}
                         />
                         <TrackName>{track.trackName}</TrackName>
                         <ArtistName>{track.artistName}</ArtistName>

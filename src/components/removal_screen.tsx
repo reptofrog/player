@@ -1,16 +1,50 @@
 import styled from 'styled-components';
 
 
-const RemovalScreen = (): JSX.Element => {
+const RemovalScreen = (state: any): JSX.Element => {
+    state = state.state;
+
+    const changeScreen = (name: string) => {
+        state.set((prevState: any) => {
+            return {
+                ...prevState,
+                'currentScreen': name
+            }
+        });
+    }
+
+    const getTrackByID = (id: number) => {
+        let tracks = state.get.tracks;
+
+        if(!tracks) return ['—', '—']
+
+        let track = tracks.data.filter((track: any) => {
+            if(track.id == id) return true
+            return false
+        });
+
+        console.log(track)
+
+        return {
+            trackName: track[0].trackName,
+            artistName: track[0].artistName
+        } as any
+    }
+
     return(
         <Screen>
             <ScreenTitle>Are you sure you want to delete this track?</ScreenTitle>
             <Wrapper>
-                <TrackName>Boogie Oogie Oogie</TrackName>
-                <ArtistName>A Taste Of Honey</ArtistName>
+                <TrackName>{`${getTrackByID(state.get.selectedForEditingTrackID).trackName}`}</TrackName>
+                <ArtistName>{`${getTrackByID(state.get.selectedForEditingTrackID).artistName}`}</ArtistName>
                 <WrapperInner>
                     <Button>Yes</Button>
-                    <Button className="delete">No</Button>
+                    <Button
+                        onClick={() => {changeScreen('edit')}}
+                        className="delete"
+                    >
+                        No
+                    </Button>
                 </WrapperInner>
             </Wrapper>
         </Screen>

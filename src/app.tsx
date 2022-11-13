@@ -16,7 +16,7 @@ const App = (): JSX.Element => {
         {
             'tracks': JSON.parse(localStorage.getItem('tracks') || 'null'),
 
-            'currentScreen': 'songs',
+            'currentScreen': 'songs', // songs, add, edit, editTrack, remove
             'selectedForEditingTrackID': null,
             'isMouseHeld': false,
             'playlistScroll': 0,
@@ -65,6 +65,11 @@ const App = (): JSX.Element => {
                 {
                     get.currentScreen == 'add'
                         ? <AddScreen />
+                        : <></>
+                }
+                {
+                    get.currentScreen == 'remove'
+                        ? <RemovalScreen state={{get, set}}/>
                         : <></>
                 }
                 <BottomPanel state={{get, set}}/>

@@ -13,33 +13,58 @@ const TopPanel = (state: any): JSX.Element => {
         });
     }
 
-    return(
-        <Panel>
-            <Button
-                className={`${state.get.currentScreen == 'songs' ? 'current' : ''}`}
-                onClick={() => {changeScreen('songs')}}
-                style={{width: '8.165rem'}}
-            >
-                Songs
-            </Button>
-            <Button
-                className={`${state.get.currentScreen == 'add' ? 'current' : ''}`}
-                onClick={() => {changeScreen('add')}}
-                style={{width: '5.765rem'}}
-            >
-                Add
-            </Button>
-            <Button
-                className={
-                    `${state.get.currentScreen == 'edit' ? 'current' : ''} aside`
-                }
-                onClick={() => {changeScreen('edit')}}
-                style={{width: '5.67833rem'}}
-            >
-                Edit
-            </Button>
-        </Panel>
-    );
+    if(
+        state.get.currentScreen == 'songs' || 
+        state.get.currentScreen == 'add' || 
+        state.get.currentScreen == 'edit'
+    ) {
+        return(
+            <Panel>
+                <Button
+                    className={`${state.get.currentScreen == 'songs' ? 'current' : ''}`}
+                    onClick={() => {changeScreen('songs')}}
+                    style={{width: '8.165rem'}}
+                >
+                    Songs
+                </Button>
+                <Button
+                    className={`${state.get.currentScreen == 'add' ? 'current' : ''}`}
+                    onClick={() => {changeScreen('add')}}
+                    style={{width: '5.765rem'}}
+                >
+                    Add
+                </Button>
+                <Button
+                    className={
+                        `${state.get.currentScreen == 'edit' ? 'current' : ''} aside`
+                    }
+                    onClick={() => {changeScreen('edit')}}
+                    style={{width: '5.67833rem'}}
+                >
+                    Edit
+                </Button>
+            </Panel>
+        );
+    } else if(state.get.currentScreen == 'add') {
+        return(
+            <Panel>
+                <Button
+                    className={
+                        `${state.get.currentScreen == 'edit' ? 'current' : ''} aside`
+                    }
+                    onClick={() => {changeScreen('edit')}}
+                >
+                    Close
+                </Button>
+            </Panel>
+        );
+    } else {
+        return(
+            <Panel>
+
+            </Panel>
+        );
+    }
 };
 
 const Panel = styled.div`
