@@ -27,19 +27,33 @@ const Playlist = (state: any): JSX.Element => {
         listRef.current!.scrollTo(0, state.get.playlistScroll);
     }, [])
 
+    const getTracks = (): any => {
+        let tracks = state.get.tracks;
+        if(tracks) {
+            tracks = tracks.data;
+            return state.get.tracks.data.map((track: any) => {
+                return(
+                    <Track key={track.id}>
+                        <RemovalButton
+                            currentScreen={state.get.currentScreen}
+                            onClick={removalButtonClickHandler}
+                        />
+                        <TrackName>{track.trackName}</TrackName>
+                        <ArtistName>{track.artistName}</ArtistName>
+                    </Track>
+                )
+            })
+        } else {
+            return <></>
+        }
+    };
+
     return(
         <List
             onScroll={listScrollHandle}
             ref={listRef}
         >
-            <Track>
-                <RemovalButton
-                    currentScreen={state.get.currentScreen}
-                    onClick={removalButtonClickHandler}
-                />
-                <TrackName>No Track Playing</TrackName>
-                <ArtistName>A Taste Of Honey</ArtistName>
-            </Track>
+            {getTracks()}
         </List>
     );
 };

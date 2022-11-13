@@ -14,7 +14,7 @@ import TopPanel from './components/top_panel';
 const App = (): JSX.Element => {
     const [get, set] = useState(
         {
-            'tracks': localStorage.getItem('tracks'),
+            'tracks': JSON.parse(localStorage.getItem('tracks') || 'null'),
 
             'currentScreen': 'songs',
             'selectedForEditingTrackID': null,
@@ -28,10 +28,22 @@ const App = (): JSX.Element => {
     );
 
     useEffect(() => {
-        localStorage.setItem('tracks', get.tracks as string);
         localStorage.setItem('currentTrackID', get.currentTrackID as string);
         localStorage.setItem('currentTrackTimePercent', get.currentTrackTimePercent as string);
-    }, [get.tracks, get.currentTrackID, get.currentTrackTimePercent]);
+    }, [get.currentTrackID, get.currentTrackTimePercent]);
+
+    useEffect(() => {
+        if(get.tracks == 'null' || !get.tracks) {
+            set((prevState: any) => {
+                return {
+                    ...prevState,
+                    'tracks': require('./init_data.json')
+                }
+            });
+        } else {
+            localStorage.setItem('tracks', JSON.stringify(get.tracks));
+        }
+    }, [get.tracks])
 
     return(
         <Fragment>

@@ -14,7 +14,7 @@ const BottomPanel = (state: any): JSX.Element => {
     const [x, setX] = useState(0);
 
     const calculateAndSetX = (e: MouseEvent) => {
-        if(state.get.currentTrackID != 'null') {
+        if(state.get.currentTrackID != 'null' || !state.get.currentTrackID) {
             const boundingClientRect = progressRef.current!.getBoundingClientRect();
             setX(e.pageX - boundingClientRect.left);
             setX(prevX => prevX + 3);
@@ -51,6 +51,17 @@ const BottomPanel = (state: any): JSX.Element => {
         }
     }
 
+    const playButtonClickHandler = () => {
+        if(state.get.currentTrackID != 'null' || !state.get.currentTrackID) {
+            state.set((prevState: any) => {
+                return {
+                    ...prevState,
+                    'isCurrentTrackPlaying': !state.get.isCurrentTrackPlaying
+                }
+            });
+        }
+    }
+
     useEffect(() => {
         function mouseMoveListener(e: any) {
             // This is needed so that we refer to the same place in memory
@@ -70,15 +81,7 @@ const BottomPanel = (state: any): JSX.Element => {
             window.removeEventListener('mouseup', windowMouseUpHandler);
         }
     });
-    
-    const playButtonClickHandler = () => {
-        state.set((prevState: any) => {
-            return {
-                ...prevState,
-                'isCurrentTrackPlaying': !state.get.isCurrentTrackPlaying
-            }
-        });
-    }
+
 
     if(state.get.currentScreen != 'edit') {
         return(
@@ -246,9 +249,9 @@ interface Props {
 const PlayButton = styled.div<Props>`
     background: ${(props): any => {
             if(props.isCurrentTrackPlaying) {
-                return `url('${PlayImg}') var(--accent);`
-            } else {
                 return `url('${PauseImg}') #DCDCDC;`
+            } else {
+                return `url('${PlayImg}') var(--accent);`
             }
         }
     };
@@ -261,7 +264,7 @@ const PlayButton = styled.div<Props>`
     transition: var(--animation);
     width: 7.3rem;
 
-    background-position: ${(props): any => {return props.isCurrentTrackPlaying ? '53%': '50%'}} 47%;
+    background-position: ${(props): any => {return props.isCurrentTrackPlaying ? '50%': '53%'}} 47%;
     background-repeat: no-repeat;
     outline-offset: -0.2rem;
 
