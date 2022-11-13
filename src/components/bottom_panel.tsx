@@ -103,8 +103,8 @@ const BottomPanel = (state: any): JSX.Element => {
                     <ProgressTextBackground>-00:00</ProgressTextBackground>
                 </Slider>
                 <Information>
-                    <InfoTitle>No track is playing</InfoTitle>
-                    <InfoSubtitle>Select any track from the playlist</InfoSubtitle>
+                    <InfoTitle>No track selected</InfoTitle>
+                    <InfoSubtitle>Choose any track from the playlist</InfoSubtitle>
                     <PlayButton
                         isCurrentTrackPlaying={state.get.isCurrentTrackPlaying}
                         onClick={playButtonClickHandler}

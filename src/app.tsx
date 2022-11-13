@@ -33,15 +33,22 @@ const App = (): JSX.Element => {
     }, [get.currentTrackID, get.currentTrackTimePercent]);
 
     useEffect(() => {
-        if(get.tracks == 'null' || !get.tracks) {
+        function initTracks() {
             set((prevState: any) => {
                 return {
                     ...prevState,
                     'tracks': require('./init_data.json')
                 }
             });
+        }
+
+        if(get.tracks == 'null' || !get.tracks) {
+            initTracks();
         } else {
             localStorage.setItem('tracks', JSON.stringify(get.tracks));
+            if(get.tracks.data.length == 0) {
+                initTracks();
+            } 
         }
     }, [get.tracks])
 
