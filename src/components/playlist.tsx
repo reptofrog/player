@@ -27,28 +27,6 @@ const Playlist = (state: any): JSX.Element => {
                 'selectedForEditingTrackID': id
             }
         });
-
-        /*
-        let tracks = state.get.tracks;
-
-        let tracks_filtered = tracks.data.filter((track: any) => {
-            if(track.id == id){
-                return false;
-            }
-            return true;
-        })
-
-        tracks_filtered = {
-            'data': tracks_filtered
-        }
-
-        state.set((prevState: any) => {
-            return {
-                ...prevState,
-                'tracks': tracks_filtered
-            }
-        });
-        */
     }
 
     useEffect(() => {

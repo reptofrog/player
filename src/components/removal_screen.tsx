@@ -16,19 +16,45 @@ const RemovalScreen = (state: any): JSX.Element => {
     const getTrackByID = (id: number) => {
         let tracks = state.get.tracks;
 
-        if(!tracks) return ['—', '—']
+        if(!tracks || tracks.data.length == 0) {
+            return {
+                trackName: '—',
+                artistName: '—'
+            } as any
+        }
 
         let track = tracks.data.filter((track: any) => {
             if(track.id == id) return true
             return false
         });
 
-        console.log(track)
-
         return {
             trackName: track[0].trackName,
             artistName: track[0].artistName
         } as any
+    }
+
+    const deleteTrackByID = (id: number) => {
+        let tracks = state.get.tracks;
+
+        let tracks_filtered = tracks.data.filter((track: any) => {
+            if(track.id == id){
+                return false;
+            }
+            return true;
+        })
+
+        tracks_filtered = {
+            'data': tracks_filtered
+        }
+
+        state.set((prevState: any) => {
+            return {
+                ...prevState,
+                'tracks': tracks_filtered,
+                'currentScreen': 'edit'
+            }
+        });
     }
 
     return(
@@ -38,7 +64,11 @@ const RemovalScreen = (state: any): JSX.Element => {
                 <TrackName>{`${getTrackByID(state.get.selectedForEditingTrackID).trackName}`}</TrackName>
                 <ArtistName>{`${getTrackByID(state.get.selectedForEditingTrackID).artistName}`}</ArtistName>
                 <WrapperInner>
-                    <Button>Yes</Button>
+                    <Button
+                        onClick={() => {deleteTrackByID(state.get.selectedForEditingTrackID)}}
+                    >
+                        Yes
+                    </Button>
                     <Button
                         onClick={() => {changeScreen('edit')}}
                         className="delete"
