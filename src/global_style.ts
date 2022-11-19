@@ -39,6 +39,8 @@ const GlobalStyle = createGlobalStyle`
     }
 
     html {
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-font-smoothing: antialiased;
         accent-color: var(--accent);
         box-sizing: border-box;
         font-family: 'Helios';

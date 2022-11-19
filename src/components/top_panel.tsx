@@ -14,18 +14,18 @@ const TopPanel = (state: any): JSX.Element => {
     }
 
     if(
-        state.get.currentScreen == 'songs' || 
+        state.get.currentScreen == 'playlist' || 
         state.get.currentScreen == 'add' || 
         state.get.currentScreen == 'edit'
     ) {
         return(
             <Panel>
                 <Button
-                    className={`${state.get.currentScreen == 'songs' ? 'current' : ''}`}
-                    onClick={() => {changeScreen('songs')}}
-                    style={{width: '8.165rem'}}
+                    className={`${state.get.currentScreen == 'playlist' ? 'current' : ''}`}
+                    onClick={() => {changeScreen('playlist')}}
+                    style={{width: '8.423rem'}}
                 >
-                    Songs
+                    Tracks
                 </Button>
                 <Button
                     className={`${state.get.currentScreen == 'add' ? 'current' : ''}`}
@@ -39,7 +39,7 @@ const TopPanel = (state: any): JSX.Element => {
                         `${state.get.currentScreen == 'edit' ? 'current' : ''} aside`
                     }
                     onClick={() => {changeScreen('edit')}}
-                    style={{width: '5.67833rem'}}
+                    style={{width: '5.678rem'}}
                 >
                     Edit
                 </Button>

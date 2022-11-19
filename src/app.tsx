@@ -9,6 +9,7 @@ import EditScreen from './components/edit_screen';
 import RemovalScreen from './components/removal_screen';
 import Playlist from './components/playlist';
 import TopPanel from './components/top_panel';
+import Player from './components/player';
 
 
 const App = (): JSX.Element => {
@@ -16,7 +17,7 @@ const App = (): JSX.Element => {
         {
             'tracks': JSON.parse(localStorage.getItem('tracks') || 'null'),
 
-            'currentScreen': 'songs', // songs, add, edit, editTrack, remove
+            'currentScreen': 'playlist', // playlist, add, edit, editTrack, remove
             'selectedForEditingTrackID': null,
             'isMouseHeld': false,
             'playlistScroll': 0,
@@ -55,10 +56,11 @@ const App = (): JSX.Element => {
     return(
         <Fragment>
             <GlobalStyle />
+            <Player />
             <Main>
                 <TopPanel state={{get, set}}/>
                 {
-                    get.currentScreen == 'songs' || get.currentScreen == 'edit'
+                    get.currentScreen == 'playlist' || get.currentScreen == 'edit'
                         ? <Playlist state={{get, set}}/>
                         : <></>
                 }
