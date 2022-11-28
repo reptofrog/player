@@ -56,7 +56,7 @@ const App = (): JSX.Element => {
     return(
         <Fragment>
             <GlobalStyle />
-            <Player />
+            <Player state={{get, set}}/>
             <Main>
                 <TopPanel state={{get, set}}/>
                 {

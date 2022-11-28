@@ -6,7 +6,7 @@
             "endingTime": [],
             "trackName": "Boogie Oogie Oogie",
             "artistName": "A Taste of Honey",
-            "link": "https://www.youtube.com/watch?v=4gqRFFg7CmA"
+            "videoId": "4gqRFFg7CmA"
         },
         {
             "id":  1,
@@ -14,7 +14,7 @@
             "endingTime": [],
             "trackName": "Kalimba",
             "artistName": "Mr Scruff",
-            "link": "https://www.youtube.com/watch?v=jZHAb92E31E"
+            "videoId": "jZHAb92E31E"
         }
     ]
 }

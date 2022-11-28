@@ -19,12 +19,24 @@ const Playlist = (state: any): JSX.Element => {
         });
     };
 
-    const removalButtonClickHandler = (id: number) => {
+    const removalButtonClickHandler = (id: number, ev: any) => {
+        ev.stopPropagation();
+
         state.set((prevState: any) => {
             return {
                 ...prevState,
                 'currentScreen': 'remove',
                 'selectedForEditingTrackID': id
+            }
+        });
+    }
+
+    const trackClickHandler = (id: number) => {
+        state.set((prevState: any) => {
+            return {
+                ...prevState,
+                'currentTrackID': id,
+                'isCurrentTrackPlaying': true
             }
         });
     }
@@ -39,10 +51,10 @@ const Playlist = (state: any): JSX.Element => {
             tracks = tracks.data;
             return state.get.tracks.data.map((track: any) => {
                 return(
-                    <Track key={track.id}>
+                    <Track key={track.id} onClick={() => trackClickHandler(track.id)}>
                         <RemovalButton
                             currentScreen={state.get.currentScreen}
-                            onClick={() => removalButtonClickHandler(track.id)}
+                            onClick={(ev) => removalButtonClickHandler(track.id, ev)}
                         />
                         <TrackName>{track.trackName}</TrackName>
                         <ArtistName>{track.artistName}</ArtistName>
