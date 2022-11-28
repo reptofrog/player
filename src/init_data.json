@@ -2,16 +2,16 @@
     "data": [
         {
             "id":  0,
-            "startingTime": [],
-            "endingTime": [],
+            "startingTime": [0, 0],
+            "endingTime": [-1, -1],
             "trackName": "Boogie Oogie Oogie",
             "artistName": "A Taste of Honey",
             "videoId": "4gqRFFg7CmA"
         },
         {
             "id":  1,
-            "startingTime": [],
-            "endingTime": [],
+            "startingTime": [0, 0],
+            "endingTime": [-1, -1],
             "trackName": "Kalimba",
             "artistName": "Mr Scruff",
             "videoId": "jZHAb92E31E"
