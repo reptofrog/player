@@ -39,7 +39,8 @@ const BottomPanel = (state: any): JSX.Element => {
             return {
                 ...prevState,
                 'isMouseHeld': false,
-                'currentTrackTimePercent': x / 300
+                'currentTrackTimePercent': x / 300,
+                'isCurrentTrackPlaying': true
             }
         });
         document.body.style.cursor = 'unset';

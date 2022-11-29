@@ -17,7 +17,8 @@ const Player = (state: any): JSX.Element => {
             disablekb: 1,
             fs: 0,
             modestbranding: 1,
-            rel: 0
+            rel: 0,
+            end: 3
             /*start end*/
         },
     };
@@ -25,11 +26,13 @@ const Player = (state: any): JSX.Element => {
     const getVideoId = (id: any): string => {
         let i = '';
         
-        state.get.tracks.data.forEach((track: any) => {
-            if(track.id == id) {
-                i = track.videoId;
-            }
-        });
+        if(state.get.tracks) {
+            state.get.tracks.data.forEach((track: any) => {
+                if(track.id == id) {
+                    i = track.videoId;
+                }
+            });
+        }
 
         return i;
     };
@@ -40,6 +43,8 @@ const Player = (state: any): JSX.Element => {
         setEffectDependencyTrigger(!effectDependencyTrigger as any); // Triggering useEffect by changing a value
 
         const p = player.current.target;
+
+        console.log(p.getDuration());
 
         // This is needed so that playback is started even if user pressed the 'play' button before the player is loaded
         if(state.get.isCurrentTrackPlaying) {
