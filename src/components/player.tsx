@@ -6,22 +6,8 @@ const Player = (state: any): JSX.Element => {
 
     const player: any = useRef();
     const loadedTrackId: any = useRef(-1);
+    const shouldTimeBeSet: any = useRef(true); // Needed to remove a race condition
     const [effectDependencyTrigger, setEffectDependencyTrigger] = useState();
-
-    const opts = {
-        height: '0',
-        width: '0',
-        playerVars: {
-            autoplay: + state.get.isCurrentTrackPlaying,
-            controls: 0,
-            disablekb: 1,
-            fs: 0,
-            modestbranding: 1,
-            rel: 0,
-            end: 3
-            /*start end*/
-        },
-    };
 
     const getVideoId = (id: any): string => {
         let i = '';
@@ -37,14 +23,37 @@ const Player = (state: any): JSX.Element => {
         return i;
     };
 
+    const getCurrentTrackStartEndTime = (id: number) => {
+        if(state.get.tracks && (state.get.currentTrackID != 'null' || !state.get.currentTrackID)) {
+            const tracks = state.get.tracks.data;
+            let result = null;
+
+            tracks.forEach((track: any) => {
+                if(track.id == id) {
+                    result = {
+                        startingTime: track.startingTime ? track.startingTime : 0,
+                        endingTime: track.endingTime ? track.endingTime : -1
+                    };  
+                }
+            })
+
+            if(result) {
+                return result;
+            }
+        }
+
+        return {
+            startingTime: 0,
+            endingTime: -1
+        };
+    };
+
     const playerOnReady = (e: any) => {
         player.current = e;
         loadedTrackId.current = state.get.currentTrackID;
         setEffectDependencyTrigger(!effectDependencyTrigger as any); // Triggering useEffect by changing a value
 
         const p = player.current.target;
-
-        console.log(p.getDuration());
 
         // This is needed so that playback is started even if user pressed the 'play' button before the player is loaded
         if(state.get.isCurrentTrackPlaying) {
@@ -54,6 +63,25 @@ const Player = (state: any): JSX.Element => {
                 loadedTrackId.current = state.get.currentTrackID;
             }
         }
+    }
+
+    const playerOnEnd = () => {
+        const p = player.current.target;
+
+        p.seekTo(0);
+        p.pauseVideo();
+
+        state.set((prevState: any) => {
+            return {
+                ...prevState,
+                'currentTrackTimePercent': 0,
+                'isCurrentTrackPlaying': false
+            }
+        });
+
+        shouldTimeBeSet.current = false;
+
+        console.log('END')
     }
 
     useEffect(() => {
@@ -90,8 +118,25 @@ const Player = (state: any): JSX.Element => {
                 data.info.currentTime
               ) {
                 let time = data.info.currentTime;
-        
-                console.log(time);
+                
+                if(shouldTimeBeSet.current) {
+                    const p = player.current.target;
+
+                    let startEndTime = getCurrentTrackStartEndTime(state.get.currentTrackID);
+                    startEndTime.endingTime = startEndTime.endingTime == -1
+                        ? p.getDuration()
+                        : startEndTime.endingTime;
+
+                    let percent = time / startEndTime.endingTime;
+
+                    state.set((prevState: any) => {
+                        return {
+                            ...prevState,
+                            'currentTrackTimePercent': percent,
+                        }
+                    });
+                }
+                
               }
             }
         } 
@@ -108,11 +153,33 @@ const Player = (state: any): JSX.Element => {
         }
     }, [effectDependencyTrigger])
 
+    useEffect(() => {
+        shouldTimeBeSet.current = true;
+    }, [state.get.isCurrentTrackPlaying])
+
+    const startEndTime = getCurrentTrackStartEndTime(state.get.currentTrackID);
+
+    const opts = {
+        height: '0',
+        width: '0',
+        playerVars: {
+            autoplay: + state.get.isCurrentTrackPlaying,
+            controls: 0,
+            disablekb: 1,
+            fs: 0,
+            modestbranding: 1,
+            rel: 0,
+            start: startEndTime.startingTime,
+            end: startEndTime.endingTime
+        },
+    };
+
     return(
         <YouTube
             videoId={getVideoId(state.get.currentTrackID)}
             opts={opts}
             onReady={e => playerOnReady(e)}
+            onEnd={() => playerOnEnd()}
             style={{
                 display: 'none'
             }}

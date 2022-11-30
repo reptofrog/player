@@ -35,12 +35,20 @@ const BottomPanel = (state: any): JSX.Element => {
     }
 
     const windowMouseUpHandler = (): void => {
+        if(state.get.isMouseHeld) {
+            state.set((prevState: any) => {
+                return {
+                    ...prevState,
+                    'isCurrentTrackPlaying': true
+                }
+            });
+        }
+
         state.set((prevState: any) => {
             return {
                 ...prevState,
                 'isMouseHeld': false,
                 'currentTrackTimePercent': x / 300,
-                'isCurrentTrackPlaying': true
             }
         });
         document.body.style.cursor = 'unset';
@@ -61,6 +69,31 @@ const BottomPanel = (state: any): JSX.Element => {
                 }
             });
         }
+    }
+
+    const getTrackInfo = (id: number) => {
+        if(state.get.tracks && (state.get.currentTrackID != 'null' || !state.get.currentTrackID)) {
+            const tracks = state.get.tracks.data;
+            let result = null;
+
+            tracks.forEach((track: any) => {
+                if(track.id == id) {
+                    result = {
+                        title: track.trackName,
+                        subtitle: track.artistName
+                    };  
+                }
+            })
+
+            if(result) {
+                return result;
+            }
+        }
+
+        return {
+            title: 'No track selected',
+            subtitle: 'Choose any track from the playlist'
+        };
     }
 
     useEffect(() => {
@@ -104,8 +137,8 @@ const BottomPanel = (state: any): JSX.Element => {
                     <ProgressTextBackground>-00:00</ProgressTextBackground>
                 </Slider>
                 <Information>
-                    <InfoTitle>No track selected</InfoTitle>
-                    <InfoSubtitle>Choose any track from the playlist</InfoSubtitle>
+                    <InfoTitle>{getTrackInfo(state.get.currentTrackID).title}</InfoTitle>
+                    <InfoSubtitle>{getTrackInfo(state.get.currentTrackID).subtitle}</InfoSubtitle>
                     <PlayButton
                         isCurrentTrackPlaying={state.get.isCurrentTrackPlaying}
                         onClick={playButtonClickHandler}

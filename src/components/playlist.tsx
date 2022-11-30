@@ -32,13 +32,15 @@ const Playlist = (state: any): JSX.Element => {
     }
 
     const trackClickHandler = (id: number) => {
-        state.set((prevState: any) => {
-            return {
-                ...prevState,
-                'currentTrackID': id,
-                'isCurrentTrackPlaying': true
-            }
-        });
+        if(state.get.currentScreen == 'playlist') {
+            state.set((prevState: any) => {
+                return {
+                    ...prevState,
+                    'currentTrackID': id,
+                    'isCurrentTrackPlaying': true
+                }
+            });
+        }
     }
 
     useEffect(() => {

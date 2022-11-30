@@ -55,6 +55,17 @@ const RemovalScreen = (state: any): JSX.Element => {
                 'currentScreen': 'edit'
             }
         });
+
+        if(state.get.currentTrackID == id) {
+            state.set((prevState: any) => {
+                return {
+                    ...prevState,
+                    'currentTrackID': null,
+                    'currentTrackTimePercent': 0,
+                    'isCurrentTrackPlaying': false
+                }
+            });
+        }
     }
 
     return(
