@@ -119,7 +119,9 @@ const Player = (state: any): JSX.Element => {
               ) {
                 let time = data.info.currentTime;
                 
-                if(shouldTimeBeSet.current) {
+                console.log(time);
+
+                if(shouldTimeBeSet.current && !state.get.isMouseHeld) {
                     const p = player.current.target;
 
                     let startEndTime = getCurrentTrackStartEndTime(state.get.currentTrackID);
@@ -134,7 +136,7 @@ const Player = (state: any): JSX.Element => {
                             ...prevState,
                             'currentTrackTimePercent': percent,
                         }
-                    });
+                    }); // TODO: make a ref value and change that in useEffect on 'else' condition
                 }
                 
               }
@@ -156,6 +158,21 @@ const Player = (state: any): JSX.Element => {
     useEffect(() => {
         shouldTimeBeSet.current = true;
     }, [state.get.isCurrentTrackPlaying])
+
+    useEffect(() => {
+        if(player.current) {
+            const p = player.current.target;
+
+            if(p.h){ // If 'h' is null, the player is not initialized fully
+                let startEndTime = getCurrentTrackStartEndTime(state.get.currentTrackID);
+                startEndTime.endingTime = startEndTime.endingTime == -1
+                    ? p.getDuration()
+                    : startEndTime.endingTime;
+
+                p.seekTo(startEndTime.endingTime / state.get.trackTimePercentSeekTo);
+            }
+        }
+    }, [state.get.currentTrackTimePercent])
 
     const startEndTime = getCurrentTrackStartEndTime(state.get.currentTrackID);
 
