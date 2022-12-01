@@ -25,6 +25,7 @@ const App = (): JSX.Element => {
             'currentTrackID': localStorage.getItem('currentTrackID'),
             'isCurrentTrackPlaying': false,
             'currentTrackTimePercent': localStorage.getItem('currentTrackTimePercent'),
+            'playerPercentSeekTo': null
         }
     );
 

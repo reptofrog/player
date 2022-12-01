@@ -119,11 +119,11 @@ const Player = (state: any): JSX.Element => {
               ) {
                 let time = data.info.currentTime;
                 
-                console.log(time);
+                console.log('T ' + time);
+
+                const p = player.current.target;
 
                 if(shouldTimeBeSet.current && !state.get.isMouseHeld) {
-                    const p = player.current.target;
-
                     let startEndTime = getCurrentTrackStartEndTime(state.get.currentTrackID);
                     startEndTime.endingTime = startEndTime.endingTime == -1
                         ? p.getDuration()
@@ -136,7 +136,7 @@ const Player = (state: any): JSX.Element => {
                             ...prevState,
                             'currentTrackTimePercent': percent,
                         }
-                    }); // TODO: make a ref value and change that in useEffect on 'else' condition
+                    });
                 }
                 
               }
@@ -164,15 +164,28 @@ const Player = (state: any): JSX.Element => {
             const p = player.current.target;
 
             if(p.h){ // If 'h' is null, the player is not initialized fully
-                let startEndTime = getCurrentTrackStartEndTime(state.get.currentTrackID);
-                startEndTime.endingTime = startEndTime.endingTime == -1
+                if(state.get.playerPercentSeekTo || state.get.playerPercentSeekTo == 0) {
+                    let startEndTime = getCurrentTrackStartEndTime(state.get.currentTrackID);
+
+                    startEndTime.endingTime = startEndTime.endingTime == -1
                     ? p.getDuration()
                     : startEndTime.endingTime;
 
-                p.seekTo(startEndTime.endingTime / state.get.trackTimePercentSeekTo);
+                    const seconds = startEndTime.endingTime * state.get.playerPercentSeekTo;
+
+                    state.set((prevState: any) => {
+                        return {
+                            ...prevState,
+                            'currentTrackTimePercent': state.get.playerPercentSeekTo,
+                            'playerPercentSeekTo': null
+                        }
+                    });
+
+                    p.seekTo(seconds); // FIXME: Time skipping on mouse press anywhere
+                }
             }
         }
-    }, [state.get.currentTrackTimePercent])
+    }, [state.get.playerPercentSeekTo])
 
     const startEndTime = getCurrentTrackStartEndTime(state.get.currentTrackID);
 

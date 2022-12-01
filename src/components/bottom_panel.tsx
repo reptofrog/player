@@ -48,7 +48,7 @@ const BottomPanel = (state: any): JSX.Element => {
             return {
                 ...prevState,
                 'isMouseHeld': false,
-                'currentTrackTimePercent': x / 300,
+                'playerPercentSeekTo': x / 300,
             }
         });
         document.body.style.cursor = 'unset';
@@ -105,7 +105,7 @@ const BottomPanel = (state: any): JSX.Element => {
         window.addEventListener('mousemove', mouseMoveListener);
         window.addEventListener('mouseup', windowMouseUpHandler);
         
-        if(!state.get.isMouseHeld) {
+        if(!state.get.isMouseHeld && !state.get.playerPercentSeekTo && state.get.playerPercentSeekTo != 0) {
             // Song progress must not be updated while a user interacts with the slider
             setX(state.get.currentTrackTimePercent * 300);
         }
