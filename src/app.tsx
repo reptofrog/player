@@ -25,6 +25,7 @@ const App = (): JSX.Element => {
             'currentTrackID': localStorage.getItem('currentTrackID'),
             'isCurrentTrackPlaying': false,
             'currentTrackTimePercent': localStorage.getItem('currentTrackTimePercent'),
+            'currentTrackTimeLeftSeconds': localStorage.getItem('currentTrackTimeLeftSeconds') || '0', // Used to show how much time of a track is left
             'playerPercentSeekTo': null
         }
     );
@@ -32,7 +33,8 @@ const App = (): JSX.Element => {
     useEffect(() => {
         localStorage.setItem('currentTrackID', get.currentTrackID as string);
         localStorage.setItem('currentTrackTimePercent', get.currentTrackTimePercent as string);
-    }, [get.currentTrackID, get.currentTrackTimePercent]);
+        localStorage.setItem('currentTrackTimeLeftSeconds', get.currentTrackTimeLeftSeconds as any);
+    }, [get.currentTrackID, get.currentTrackTimePercent, get.currentTrackTimeLeftSeconds]);
 
     useEffect(() => {
         function initTracks() {

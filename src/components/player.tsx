@@ -58,7 +58,12 @@ const Player = (state: any): JSX.Element => {
         // This is needed so that playback is started even if user pressed the 'play' button before the player is loaded
         if(state.get.isCurrentTrackPlaying) {
             if(state.get.currentTrackID == loadedTrackId.current) {
-                p.playVideo();
+                state.set((prevState: any) => {
+                    return {
+                        ...prevState,
+                        'playerPercentSeekTo': state.get.currentTrackTimePercent,
+                    }
+                });
             } else {
                 loadedTrackId.current = state.get.currentTrackID;
             }
@@ -80,8 +85,6 @@ const Player = (state: any): JSX.Element => {
         });
 
         shouldTimeBeSet.current = false;
-
-        console.log('END')
     }
 
     useEffect(() => {
@@ -91,6 +94,13 @@ const Player = (state: any): JSX.Element => {
             if(p.h){ // If 'h' is null, the player is not initialized fully
                 if(state.get.isCurrentTrackPlaying) {
                     if(state.get.currentTrackID == loadedTrackId.current) {
+                        state.set((prevState: any) => {
+                            return {
+                                ...prevState,
+                                'playerPercentSeekTo': state.get.currentTrackTimePercent,
+                            }
+                        });
+
                         p.playVideo();
                     } else {
                         loadedTrackId.current = state.get.currentTrackID;
@@ -119,7 +129,7 @@ const Player = (state: any): JSX.Element => {
               ) {
                 let time = data.info.currentTime;
                 
-                console.log('T ' + time);
+                /*console.log('T ' + time);*/
 
                 const p = player.current.target;
 
@@ -130,11 +140,13 @@ const Player = (state: any): JSX.Element => {
                         : startEndTime.endingTime;
 
                     let percent = time / startEndTime.endingTime;
+                    let timeLeft = startEndTime.endingTime - time;
 
                     state.set((prevState: any) => {
                         return {
                             ...prevState,
                             'currentTrackTimePercent': percent,
+                            'currentTrackTimeLeftSeconds': timeLeft
                         }
                     });
                 }

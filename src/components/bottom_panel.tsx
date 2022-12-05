@@ -39,7 +39,8 @@ const BottomPanel = (state: any): JSX.Element => {
             state.set((prevState: any) => {
                 return {
                     ...prevState,
-                    'isCurrentTrackPlaying': true
+                    'isCurrentTrackPlaying': true,
+                    'playerPercentSeekTo': x / 300,
                 }
             });
         }
@@ -48,7 +49,6 @@ const BottomPanel = (state: any): JSX.Element => {
             return {
                 ...prevState,
                 'isMouseHeld': false,
-                'playerPercentSeekTo': x / 300,
             }
         });
         document.body.style.cursor = 'unset';
@@ -116,6 +116,7 @@ const BottomPanel = (state: any): JSX.Element => {
         }
     });
 
+    const timeLeft = new Date(1000 * state.get.currentTrackTimeLeftSeconds).toISOString().substring(14, 19);
 
     if(state.get.currentScreen != 'edit') {
         return(
@@ -131,10 +132,10 @@ const BottomPanel = (state: any): JSX.Element => {
                             style={{width: `${x / 10}rem`}}
                             className={`${state.get.isCurrentTrackPlaying ? 'playing' : ''}`}
                         >
-                            <ProgressTextForeground>-00:00</ProgressTextForeground>
+                            <ProgressTextForeground>-{timeLeft}</ProgressTextForeground>
                         </Progress>
                     </ProgressWrapper>
-                    <ProgressTextBackground>-00:00</ProgressTextBackground>
+                    <ProgressTextBackground>-{timeLeft}</ProgressTextBackground>
                 </Slider>
                 <Information>
                     <InfoTitle>{getTrackInfo(state.get.currentTrackID).title}</InfoTitle>
