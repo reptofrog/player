@@ -72,7 +72,7 @@ const Player = (state: any): JSX.Element => {
 
     const playerOnEnd = () => {
         const p = player.current.target;
-
+/*
         p.seekTo(0);
         p.pauseVideo();
 
@@ -80,11 +80,13 @@ const Player = (state: any): JSX.Element => {
             return {
                 ...prevState,
                 'currentTrackTimePercent': 0,
+                'playerPercentSeekTo': 0,
+                'currentTrackTimeLeftSeconds': 0,   
                 'isCurrentTrackPlaying': false
             }
         });
 
-        shouldTimeBeSet.current = false;
+        shouldTimeBeSet.current = false;*/
     }
 
     useEffect(() => {
@@ -195,6 +197,8 @@ const Player = (state: any): JSX.Element => {
 
                     p.seekTo(seconds); // FIXME: Time skipping on mouse press anywhere
                 }
+
+                /*if() // TODO: move onEnd here*/
             }
         }
     }, [state.get.playerPercentSeekTo])
