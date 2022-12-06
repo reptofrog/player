@@ -72,21 +72,20 @@ const Player = (state: any): JSX.Element => {
 
     const playerOnEnd = () => {
         const p = player.current.target;
-/*
+
         p.seekTo(0);
         p.pauseVideo();
 
         state.set((prevState: any) => {
             return {
                 ...prevState,
-                'currentTrackTimePercent': 0,
                 'playerPercentSeekTo': 0,
                 'currentTrackTimeLeftSeconds': 0,   
                 'isCurrentTrackPlaying': false
             }
         });
 
-        shouldTimeBeSet.current = false;*/
+        shouldTimeBeSet.current = false;
     }
 
     useEffect(() => {
@@ -178,27 +177,42 @@ const Player = (state: any): JSX.Element => {
             const p = player.current.target;
 
             if(p.h){ // If 'h' is null, the player is not initialized fully
+                let startEndTime = getCurrentTrackStartEndTime(state.get.currentTrackID);
+
+                startEndTime.endingTime = startEndTime.endingTime == -1
+                ? p.getDuration()
+                : startEndTime.endingTime;
+
+                const seconds = startEndTime.endingTime * state.get.playerPercentSeekTo;
+
                 if(state.get.playerPercentSeekTo || state.get.playerPercentSeekTo == 0) {
-                    let startEndTime = getCurrentTrackStartEndTime(state.get.currentTrackID);
+                    if(state.get.playerPercentSeekTo != 1) {
+                        state.set((prevState: any) => {
+                            return {
+                                ...prevState,
+                                'currentTrackTimePercent': state.get.playerPercentSeekTo,
+                                'playerPercentSeekTo': null
+                            }
+                        });
 
-                    startEndTime.endingTime = startEndTime.endingTime == -1
-                    ? p.getDuration()
-                    : startEndTime.endingTime;
-
-                    const seconds = startEndTime.endingTime * state.get.playerPercentSeekTo;
-
-                    state.set((prevState: any) => {
-                        return {
-                            ...prevState,
-                            'currentTrackTimePercent': state.get.playerPercentSeekTo,
-                            'playerPercentSeekTo': null
-                        }
-                    });
-
-                    p.seekTo(seconds); // FIXME: Time skipping on mouse press anywhere
+                        p.seekTo(seconds);
+                    } else {
+                        p.seekTo(0);
+                        p.pauseVideo();
+                
+                        state.set((prevState: any) => {
+                            return {
+                                ...prevState,
+                                'currentTrackTimePercent': 0,
+                                'currentTrackTimeLeftSeconds': 0, 
+                                'isCurrentTrackPlaying': false,
+                                'playerPercentSeekTo': null
+                            }
+                        });
+                
+                        shouldTimeBeSet.current = false;
+                    }
                 }
-
-                /*if() // TODO: move onEnd here*/
             }
         }
     }, [state.get.playerPercentSeekTo])
