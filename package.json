@@ -6,10 +6,12 @@
   "devDependencies": {
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
+    "@types/react-input-mask": "^3.0.0-alpha.2",
     "@types/styled-components": "^5.1.26",
     "file-loader": "^6.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-input-mask": "^3.0.0-alpha.2",
     "react-youtube": "^10.0.0",
     "styled-components": "^5.3.6",
     "ts-loader": "^9.4.1",

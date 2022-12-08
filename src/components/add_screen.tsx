@@ -1,13 +1,39 @@
+// @ts-nocheck  
+
+import { useState } from 'react';
 import styled from 'styled-components';
 
+import InputMask from 'react-input-mask';
 
-const AddScreen = (): JSX.Element => {
+
+const AddScreen = (state: any): JSX.Element => {
+    state = state.state;
+    
+    const screenSubmitHandler = (ev: any) => {
+        ev.preventDefault();
+
+        state.set((prevState: any) => {
+            return {
+                ...prevState,
+                'isTrackBeingAdded': true
+            }
+        });
+    };
+
     return(
-        <Screen>
+        <Screen 
+            className={state.get.isTrackBeingAdded ? 'loading': ''}
+            onSubmit={ev => screenSubmitHandler(ev)}
+        >
             <ScreenTitle>Add any video from YouTube to your playlist</ScreenTitle>
             <Cell>
                 <Title>Video link</Title>
-                <Input placeholder='Required'></Input>
+                <InputMask 
+                    placeholder='Required'
+                    mask="99m 99s"
+                >
+                    {() => (<Input/>)}
+                </InputMask>
             </Cell>
             <Cell>
                 <Title>Starting time</Title>
@@ -22,12 +48,18 @@ const AddScreen = (): JSX.Element => {
     )
 };
 
-const Screen = styled.div`
+const Screen = styled.form`
     height: 100%;
     overflow: scroll;
     padding: 2rem;
     scrollbar-width: none;
     user-select: none;
+    transition: 0.2s;
+
+    &.loading {
+        opacity: 0.3;
+        pointer-events: none;
+    }
 
     &::-webkit-scrollbar {
         width: 0;
@@ -82,12 +114,14 @@ const Input = styled.input`
     outline: none;
 `;
 
-const Button = styled.div`
+const Button = styled.button`
     background: white;
     border-radius: 0.7rem;
     border: solid 0.1rem rgba(0, 0, 0, 0.10);
     box-shadow: 0px 0.05rem 0.2rem rgba(0, 0, 0, 0.05);
     cursor: pointer;
+    display: block;
+    font-family: 'Helios';
     font-size: 1.6rem;
     margin-block-start: 2rem;
     margin-inline-start: auto;

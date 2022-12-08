@@ -26,7 +26,9 @@ const App = (): JSX.Element => {
             'isCurrentTrackPlaying': false,
             'currentTrackTimePercent': localStorage.getItem('currentTrackTimePercent'),
             'currentTrackTimeLeftSeconds': localStorage.getItem('currentTrackTimeLeftSeconds') || '0', // Used to show how much time of a track is left
-            'playerPercentSeekTo': null
+            'playerPercentSeekTo': null,
+
+            'isTrackBeingAdded': false
         }
     );
 
@@ -69,7 +71,7 @@ const App = (): JSX.Element => {
                 }
                 {
                     get.currentScreen == 'add'
-                        ? <AddScreen />
+                        ? <AddScreen state={{get, set}}/>
                         : <></>
                 }
                 {

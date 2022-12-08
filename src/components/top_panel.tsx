@@ -5,12 +5,14 @@ const TopPanel = (state: any): JSX.Element => {
     state = state.state;
 
     const changeScreen = (name: string) => {
-        state.set((prevState: any) => {
-            return {
-                ...prevState,
-                'currentScreen': name
-            }
-        });
+        if(!state.get.isTrackBeingAdded) {
+            state.set((prevState: any) => {
+                return {
+                    ...prevState,
+                    'currentScreen': name
+                }
+            });
+        }
     }
 
     if(
