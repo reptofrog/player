@@ -32,7 +32,7 @@ const AddScreen = (state: any): JSX.Element => {
                     placeholder='Required'
                     mask="99m 99s"
                 >
-                    {() => (<Input/>)}
+                    <Input />
                 </InputMask>
             </Cell>
             <Cell>
