@@ -124,8 +124,6 @@ const TrackName = styled.p`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    
-    margin-block-end: 0.2rem;
 `;
 
 const ArtistName = styled.p`

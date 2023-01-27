@@ -3,28 +3,12 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-import InputMask from 'react-input-mask';
-
 
 const AddScreen = (state: any): JSX.Element => {
     state = state.state;
-    
-    const screenSubmitHandler = (ev: any) => {
-        ev.preventDefault();
-
-        state.set((prevState: any) => {
-            return {
-                ...prevState,
-                'isTrackBeingAdded': true
-            }
-        });
-    };
 
     return(
-        <Screen 
-            className={state.get.isTrackBeingAdded ? 'loading': ''}
-            onSubmit={ev => screenSubmitHandler(ev)}
-        >
+        <Screen className={`${state.get.isTrackInfoBeingLoaded == true ? 'inactive' : ''}`}>
             <ScreenTitle>Add any video from YouTube to your playlist</ScreenTitle>
             <Cell>
                 <Title>Video link</Title>
@@ -53,11 +37,11 @@ const Screen = styled.form`
     overflow: scroll;
     padding: 2rem;
     scrollbar-width: none;
+    transition: var(--animation);
     user-select: none;
-    transition: 0.2s;
 
-    &.loading {
-        opacity: 0.3;
+    &.inactive {
+        opacity: 0.5;
         pointer-events: none;
     }
 

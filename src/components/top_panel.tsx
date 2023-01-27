@@ -21,7 +21,7 @@ const TopPanel = (state: any): JSX.Element => {
         state.get.currentScreen == 'edit'
     ) {
         return(
-            <Panel>
+            <Panel className={`${state.get.isTrackInfoBeingLoaded == true ? 'inactive' : ''}`}>
                 <Button
                     className={`${state.get.currentScreen == 'playlist' ? 'current' : ''}`}
                     onClick={() => {changeScreen('playlist')}}
@@ -77,6 +77,12 @@ const Panel = styled.div`
     height: 5rem;
     min-height: 5rem;
     padding: 1rem 2rem;
+    transition: var(--animation);
+
+    &.inactive {
+        filter: brightness(0.5);
+        pointer-events: none;
+    }
 `;
 
 const Button = styled.div`

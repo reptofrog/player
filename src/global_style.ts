@@ -45,6 +45,7 @@ const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
         font-family: 'Helios';
         font-size: 10px;
+        line-height: 190%;
     }
 
     *, *:before, *:after {

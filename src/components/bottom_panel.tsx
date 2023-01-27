@@ -206,6 +206,7 @@ const ProgressWrapper = styled.div`
 const Progress = styled.div`
     background: #858585;
     height: 2rem;
+    line-height: 0;
     max-width: 30rem;
     min-width: 0.6rem;
     overflow: hidden;
@@ -258,8 +259,6 @@ const InfoTitle = styled.p`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-
-    margin-block-end: 0.2rem;
 
     &.withMargin {
         margin-block-end: 0.5rem;

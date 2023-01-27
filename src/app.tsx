@@ -27,8 +27,8 @@ const App = (): JSX.Element => {
             'currentTrackTimePercent': localStorage.getItem('currentTrackTimePercent'),
             'currentTrackTimeLeftSeconds': localStorage.getItem('currentTrackTimeLeftSeconds') || '0', // Used to show how much time of a track is left
             'playerPercentSeekTo': null,
-
-            'isTrackBeingAdded': false
+            
+            'isTrackInfoBeingLoaded': false,
         }
     );
 
