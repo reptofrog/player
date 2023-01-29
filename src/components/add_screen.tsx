@@ -44,8 +44,8 @@ const AddScreen = (state: any): JSX.Element => {
 
                         tracks.push({
                             'id': lastTrackId + 1,
-                            'startingTime': startingTime,
-                            'endingTime': endingTime,
+                            'startingTime': null,//startingTime, TODO: start/end time is broken in player.tsx
+                            'endingTime': null, //endingTime,
                             'trackName': data.title,
                             'artistName': data.author_name,
                             'videoId': Id

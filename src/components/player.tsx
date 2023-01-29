@@ -102,7 +102,9 @@ const Player = (state: any): JSX.Element => {
                             }
                         });
 
-                        p.playVideo();
+                        if(state.get.currentTrackTimePercent != 0) {
+                            p.playVideo();
+                        }
                     } else {
                         loadedTrackId.current = state.get.currentTrackID;
                     }
