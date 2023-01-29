@@ -17,7 +17,7 @@ const App = (): JSX.Element => {
         {
             'tracks': JSON.parse(localStorage.getItem('tracks') || 'null'),
 
-            'currentScreen': 'playlist', // playlist, add, edit, editTrack, remove
+            'currentScreen': 'editTrack', // playlist, add, edit, editTrack, remove
             'selectedForEditingTrackID': null,
             'isMouseHeld': false,
             'playlistScroll': 0,

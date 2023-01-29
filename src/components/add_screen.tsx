@@ -1,31 +1,111 @@
 // @ts-nocheck  
 
-import { useState } from 'react';
+import { useRef } from 'react';
 import styled from 'styled-components';
+
+import InputMask from 'react-input-mask';
+import YouTube from 'react-youtube';
 
 
 const AddScreen = (state: any): JSX.Element => {
     state = state.state;
 
+    const linkRef = useRef();
+    const startingTimeRef = useRef(null);
+    const endingTimeRef = useRef(null);
+
+    const screenSubmitHandler = (e: any) => {
+        e.preventDefault();
+
+        const regexp = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+        const match = linkRef.current.value.match(regexp);
+        if(match) {
+            const Id = match[1];
+
+            state.set((prevState: any) => {
+                return {
+                    ...prevState,
+                    'isTrackInfoBeingLoaded': true,
+                }
+            });
+            fetch(`https://noembed.com/embed?url=${match[0]}`)
+                .then(response => {
+                    response.json().then(data => {
+                        let tracks = state.get.tracks.data;
+                        const lastTrackId = tracks[tracks.length - 1].id;
+
+                        let startingTime = startingTimeRef.current.value;
+                        startingTime = (parseInt(startingTime.substring(0, 2)) || 0) * 60 + (parseInt(startingTime.substring(4, 6)) || 0);
+                        startingTime = startingTime === 0 ? null : startingTime;
+
+                        let endingTime = endingTimeRef.current.value;
+                        endingTime = (parseInt(endingTime.substring(0, 2)) || 0) * 60 + (parseInt(endingTime.substring(4, 6)) || 0);
+                        endingTime = endingTime === 0 ? null : endingTime;
+
+                        tracks.push({
+                            'id': lastTrackId + 1,
+                            'startingTime': startingTime,
+                            'endingTime': endingTime,
+                            'trackName': data.title,
+                            'artistName': data.author_name,
+                            'videoId': Id
+                        })
+
+                        state.set((prevState: any) => {
+                            return {
+                                ...prevState,
+                                'currentScreen': 'playlist',
+                                'isTrackInfoBeingLoaded': false,
+                                'tracks': {
+                                    'data': [
+                                        ...tracks
+                                    ]
+                                }
+                            }
+                        });
+                    });
+                })
+                .catch(() => {
+                    state.set((prevState: any) => {
+                        return {
+                            ...prevState,
+                            'isTrackInfoBeingLoaded': false,
+                        }
+                    });
+                })
+        }
+    };
+
     return(
-        <Screen className={`${state.get.isTrackInfoBeingLoaded == true ? 'inactive' : ''}`}>
+        <Screen
+            onSubmit={e => screenSubmitHandler(e)}
+            className={`${state.get.isTrackInfoBeingLoaded == true ? 'inactive' : ''}`}
+        >
             <ScreenTitle>Add any video from YouTube to your playlist</ScreenTitle>
             <Cell>
                 <Title>Video link</Title>
-                <InputMask 
+                <Input
                     placeholder='Required'
-                    mask="99m 99s"
-                >
-                    <Input />
-                </InputMask>
+                    ref={linkRef}
+                />
             </Cell>
             <Cell>
                 <Title>Starting time</Title>
-                <Input placeholder='—'></Input>
+                <InputMask 
+                    placeholder='—'
+                    mask="99m 99s"
+                >
+                    <Input ref={startingTimeRef} />
+                </InputMask>
             </Cell>
             <Cell>
                 <Title>Ending time</Title>
-                <Input placeholder='—'></Input>
+                <InputMask 
+                    placeholder='—'
+                    mask="99m 99s"
+                >
+                    <Input ref={endingTimeRef} />
+                </InputMask>
             </Cell>
             <Button>Add to playlist</Button>
         </Screen>
